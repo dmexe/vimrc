@@ -13,9 +13,11 @@ set ignorecase
 set nobackup
 set autochdir
 
+syntax on
+filetype on
+filetype indent on
+filetype plugin on
 colorscheme railscast
-set colorcolumn=80
-hi ColorColumn guibg=#444444 ctermbg=246
 
 set encoding=utf-8
 set termencoding=utf-8
@@ -28,6 +30,8 @@ if has("gui_running")
 	set guifont=Monaco:h12
 	set guioptions-=T  
 	set visualbell
+	set colorcolumn=80
+	hi ColorColumn guibg=#444444 ctermbg=246
 endif
 
 function! IndentAndComplete()
