@@ -69,6 +69,68 @@ autoload/delimitMateTests.vim \
 doc/delimitMate.txt \
 plugin/delimitMate.vim
 
+FUZZYFINDER_FILES=autoload/fuf/bookmarkdir.vim \
+autoload/fuf/bookmarkfile.vim \
+autoload/fuf/buffer.vim \
+autoload/fuf/buffertag.vim \
+autoload/fuf/callbackfile.vim \
+autoload/fuf/callbackitem.vim \
+autoload/fuf/changelist.vim \
+autoload/fuf/coveragefile.vim \
+autoload/fuf/dir.vim \
+autoload/fuf/file.vim \
+autoload/fuf/givencmd.vim \
+autoload/fuf/givendir.vim \
+autoload/fuf/givenfile.vim \
+autoload/fuf/help.vim \
+autoload/fuf/jumplist.vim \
+autoload/fuf/line.vim \
+autoload/fuf/mrucmd.vim \
+autoload/fuf/mrufile.vim \
+autoload/fuf/quickfix.vim \
+autoload/fuf/tag.vim \
+autoload/fuf/taggedfile.vim \
+autoload/fuf.vim \
+doc/fuf.jax \
+doc/fuf.txt \
+plugin/fuf.vim
+
+L9_FILES=autoload/l9.vim \
+autoload/l9/async.py \
+autoload/l9/async.vim \
+autoload/l9/quickfix.vim \
+autoload/l9/tempbuffer.vim \
+autoload/l9/tempvariables.vim \
+doc/l9.jax \
+doc/l9.txt \
+plugin/l9.vim
+
+RAILS_FILES=autoload/rails.vim \
+doc/rails.txt \
+plugin/rails.vim
+
+RUBY_FILES=autoload/rubycomplete.vim \
+bin/vim-ruby-install.rb \
+compiler/eruby.vim \
+compiler/rspec.vim \
+compiler/ruby.vim \
+compiler/rubyunit.vim \
+doc/ft-ruby-omni.txt \
+doc/ft-ruby-syntax.txt \
+etc/release/cvsrelease \
+etc/release/README \
+etc/release/release.sh \
+etc/website/djk-theme.css \
+etc/website/index.html \
+etc/website/update.sh \
+ftdetect/ruby.vim \
+ftplugin/eruby.vim \
+ftplugin/ruby.vim \
+indent/eruby.vim \
+indent/ruby.vim \
+syntax/eruby.vim \
+syntax/ruby.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscast.vim \
@@ -76,7 +138,11 @@ $(SNIPMATE_FILES) \
 $(SUPERTAB_FILES) \
 $(NERDTREE_FILES) \
 $(VCSCOMMAND_FILES) \
-$(DELIMIT_FILES)
+$(DELIMIT_FILES) \
+$(FUZZYFINDER_FILES) \
+$(L9_FILES) \
+$(RAILS_FILES) \
+$(RUBY_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -168,3 +234,57 @@ $(DELIMIT_FILES): bundles/delimitMate.git
 	@mkdir -p `pwd`/`dirname $@`
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/delimitMate.git/$@ `pwd`/$@
+
+bundles/fuzzy_finder.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/vim-scripts/FuzzyFinder.git $@ > $(NULL); \
+	fi
+
+$(FUZZYFINDER_FILES): bundles/fuzzy_finder.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/fuzzy_finder.git/$@ `pwd`/$@
+
+bundles/l9: bundles
+	@echo fetch $@
+	@rm -rf `pwd`/$@
+	@rm -f `pwd`/$@.zip
+	$(WGET) -O $@.zip http://www.vim.org/scripts/download_script.php?src_id=13948
+	mkdir -p $@
+	(cd $@ && unzip ../l9.zip)
+
+$(L9_FILES): bundles/l9
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/l9/$@ `pwd`/$@
+
+bundles/rails.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/tpope/vim-rails.git $@ > $(NULL); \
+	fi
+
+$(RAILS_FILES): bundles/rails.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/rails.git/$@ `pwd`/$@
+
+bundles/ruby.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/vim-ruby/vim-ruby.git $@ > $(NULL); \
+	fi
+
+$(RUBY_FILES): bundles/ruby.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/ruby.git/$@ `pwd`/$@
+

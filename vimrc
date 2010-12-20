@@ -23,6 +23,10 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 
+" first, enable status line always
+set laststatus=2
+set statusline=%<%f\ %y;\ %{VCSCommandGetStatusLine()}\ %h%m%r%=%l,%c%V\ %P
+
 if has("gui_running")
 	" GUI is running or is about to start.
 	" Maximize gvim window.
@@ -41,3 +45,4 @@ function! IndentAndComplete()
 	return "\<tab>"
 endfunction
 
+nmap <leader>e :FufFile<CR>
