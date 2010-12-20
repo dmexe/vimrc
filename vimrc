@@ -25,14 +25,14 @@ if has("gui_running")
 	" GUI is running or is about to start.
 	" Maximize gvim window.
 	set lines=50 columns=160
-  set guifont=Monaco:h12
+	set guifont=Monaco:h12
 	set guioptions-=T  
 	set visualbell
 endif
 
 function! IndentAndComplete()
 	if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*'
-	 return "\<==>"
+		return "\<==>"
 	endif
 	return "\<tab>"
 endfunction
