@@ -64,13 +64,19 @@ syntax/svkannotate.vim \
 syntax/svnannotate.vim \
 syntax/vcscommit.vim
 
+DELIMIT_FILES=autoload/delimitMate.vim \
+autoload/delimitMateTests.vim \
+doc/delimitMate.txt \
+plugin/delimitMate.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscast.vim \
 $(SNIPMATE_FILES) \
 $(SUPERTAB_FILES) \
 $(NERDTREE_FILES) \
-$(VCSCOMMAND_FILES)
+$(VCSCOMMAND_FILES) \
+$(DELIMIT_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -150,3 +156,15 @@ $(VCSCOMMAND_FILES): bundles/vcscommand.git
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/vcscommand.git/$@ `pwd`/$@
 
+bundles/delimitMate.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/Raimondi/delimitMate.git $@ > $(NULL); \
+	fi
+
+$(DELIMIT_FILES): bundles/delimitMate.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/delimitMate.git/$@ `pwd`/$@
