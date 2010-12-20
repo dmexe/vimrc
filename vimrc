@@ -39,8 +39,12 @@ if has("gui_running")
 	set guifont=Monaco:h12
 	set guioptions-=T  
 	set visualbell
+	
 	set colorcolumn=80
 	hi ColorColumn guibg=#444444 ctermbg=246
+	
+	" fullscreen options
+ 	set fuoptions=maxvert,maxhorz
 endif
 
 " FuzzyFinder
@@ -62,7 +66,7 @@ fun! s:create_listener(dir)
 	return listener
 endf
 
-fun! MyLauncher(dir)
+fun! RailsFuzzyLaunch(dir)
 	let d = expand(RailsRoot() . a:dir)
 	let cmd = "`find " . d . " -type f ! -regex \"^.*\/[.#_~].*$\"`"
 	let files = substitute(glob(cmd), d . "/", '', 'g')
@@ -73,12 +77,12 @@ fun! MyLauncher(dir)
 	endif
 endf
 
-autocmd User Rails nnoremap <space>M :call MyLauncher("/app/models/")<CR>
-autocmd User Rails nnoremap <space>H :call MyLauncher("/app/helpers/")<CR>
-autocmd User Rails nnoremap <space>C :call MyLauncher("/app/controllers/")<CR>
-autocmd User Rails nnoremap <space>V :call MyLauncher("/app/views/")<CR>
-autocmd User Rails nnoremap <space>L :call MyLauncher("/lib/")<CR>
-autocmd User Rails nnoremap <space>F :call MyLauncher("/config/")<CR>
-autocmd User Rails nnoremap <space>T :call MyLauncher("/test/")<CR>
-autocmd User Rails nnoremap <space>R :call MyLauncher("/spec/")<CR>
+autocmd User Rails nnoremap <space>M :call RailsFuzzyLaunch("/app/models/")<CR>
+autocmd User Rails nnoremap <space>H :call RailsFuzzyLaunch("/app/helpers/")<CR>
+autocmd User Rails nnoremap <space>C :call RailsFuzzyLaunch("/app/controllers/")<CR>
+autocmd User Rails nnoremap <space>V :call RailsFuzzyLaunch("/app/views/")<CR>
+autocmd User Rails nnoremap <space>L :call RailsFuzzyLaunch("/lib/")<CR>
+autocmd User Rails nnoremap <space>F :call RailsFuzzyLaunch("/config/")<CR>
+autocmd User Rails nnoremap <space>T :call RailsFuzzyLaunch("/test/")<CR>
+autocmd User Rails nnoremap <space>R :call RailsFuzzyLaunch("/spec/")<CR>
 
