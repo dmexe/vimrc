@@ -133,7 +133,7 @@ syntax/ruby.vim
 
 all: bundles colors \
 $(HOME)/.vimrc \
-colors/railscast.vim \
+colors/railscasts.vim \
 $(SNIPMATE_FILES) \
 $(SUPERTAB_FILES) \
 $(NERDTREE_FILES) \
@@ -165,10 +165,10 @@ bundles/railscast.git: bundles
 	else $(GIT) clone git://github.com/jpo/vim-railscasts-theme.git $@ > $(NULL); \
 	fi
 
-colors/railscast.vim: bundles/railscast.git
+colors/railscasts.vim: bundles/railscast.git
 	@echo link $@
 	@rm -f `pwd`/colors/railscast.vim
-	@ln -s `pwd`/bundles/railscast.git/railscasts.vim `pwd`/colors/railscast.vim
+	@ln -s `pwd`/bundles/railscast.git/railscasts.vim `pwd`/$@
 
 bundles/snipmate.git: bundles
 	@echo fetch $@

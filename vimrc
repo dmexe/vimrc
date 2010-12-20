@@ -17,7 +17,7 @@ syntax on
 filetype on
 filetype indent on
 filetype plugin on
-colorscheme railscast
+colorscheme railscasts
 
 set encoding=utf-8
 set termencoding=utf-8
@@ -43,9 +43,13 @@ nmap <leader>e :FufFile<CR>
 nmap <leader>b :FufBuffer<CR>
 
 " Rails
-let s:filelistener = {}
-function s:filelistener.onComplete(item, method)
-	echo "Item: " . a:item . " Method : " . a:method
-endfunction
+let s:handler = {}
+function s:handler.onComplete(item, method)
+	execute ":e " . a:item 
+endfunctio
 
-nnoremap <leader>c :call fuf#callbackfile#launch(RailsRoot() + "app/controllers", 0, '>', '', {})<CR>
+fun! MyTest()
+	call fuf#callbackitem#launch("", 0, '>', s:handler, ["a", "b", "c"], 0)
+endf
+
+" nnoremap <leader>c :call fuf#callbackfile#launch(RailsRoot() + "app/controllers", 0, '>', '', {})<CR>
