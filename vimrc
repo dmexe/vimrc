@@ -11,7 +11,9 @@ set incsearch
 set ignorecase
 
 set nobackup
-set autochdir
+if exists("+autochdir")
+	set autochdir
+endif
 
 syntax on
 filetype on
@@ -23,9 +25,12 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 
+set autowrite
+set autowriteall
+
 " first, enable status line always
 set laststatus=2
-set statusline=%<%f\ %y\ %{VCSCommandGetStatusLine()}\ %h%m%r%=%l,%c%V\ %P
+set statusline=%<%f\ %y\ %h%m%r%=%l,%c%V\ %P
 
 if has("gui_running")
 	" GUI is running or is about to start.
@@ -52,23 +57,28 @@ fun! s:create_listener(dir)
 	let listener = {}
 	let listener.dir = a:dir
 	fun listener.onComplete(item, method)
-		execute ":tabfind " . self.dir . "/" . a:item
+		execute ":find " . self.dir . "/" . a:item
 	endf
 	return listener
 endf
 
 fun! MyLauncher(dir)
 	let d = expand(RailsRoot() . a:dir)
-	let files = substitute(glob("`find " . d . " -type f`"), d . "/", '', 'g')
-	call fuf#callbackitem#launch("", 0, '>', s:create_listener(d), split(files, "\n"), 0)
+	let cmd = "`find " . d . " -type f ! -regex \"^.*\/[.#_~].*$\"`"
+	let files = substitute(glob(cmd), d . "/", '', 'g')
+	if empty(files)
+		echo "empty"
+	else
+		call fuf#callbackitem#launch("", 0, '>', s:create_listener(d), split(files, "\n"), 0)
+	endif
 endf
 
-autocmd User Rails nnoremap <leader>M :call MyLauncher("/app/models/")<CR>
-autocmd User Rails nnoremap <leader>H :call MyLauncher("/app/helpers/")<CR>
-autocmd User Rails nnoremap <leader>C :call MyLauncher("/app/controllers/")<CR>
-autocmd User Rails nnoremap <leader>V :call MyLauncher("/app/views/")<CR>
-autocmd User Rails nnoremap <leader>L :call MyLauncher("/lib/")<CR>
-autocmd User Rails nnoremap <leader>F :call MyLauncher("/config/")<CR>
-autocmd User Rails nnoremap <leader>T :call MyLauncher("/test/")<CR>
-autocmd User Rails nnoremap <leader>R :call MyLauncher("/spec/")<CR>
+autocmd User Rails nnoremap <space>M :call MyLauncher("/app/models/")<CR>
+autocmd User Rails nnoremap <space>H :call MyLauncher("/app/helpers/")<CR>
+autocmd User Rails nnoremap <space>C :call MyLauncher("/app/controllers/")<CR>
+autocmd User Rails nnoremap <space>V :call MyLauncher("/app/views/")<CR>
+autocmd User Rails nnoremap <space>L :call MyLauncher("/lib/")<CR>
+autocmd User Rails nnoremap <space>F :call MyLauncher("/config/")<CR>
+autocmd User Rails nnoremap <space>T :call MyLauncher("/test/")<CR>
+autocmd User Rails nnoremap <space>R :call MyLauncher("/spec/")<CR>
 

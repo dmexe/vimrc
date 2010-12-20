@@ -55,21 +55,6 @@ nerdtree_plugin/exec_menuitem.vim \
 nerdtree_plugin/fs_menu.vim \
 plugin/NERD_tree.vim
 
-VCSCOMMAND_FILES=doc/vcscommand.txt \
-plugin/vcsbzr.vim \
-plugin/vcscommand.vim \
-plugin/vcscvs.vim \
-plugin/vcsgit.vim \
-plugin/vcshg.vim \
-plugin/vcssvk.vim \
-plugin/vcssvn.vim \
-syntax/cvsannotate.vim \
-syntax/gitannotate.vim \
-syntax/hgannotate.vim \
-syntax/svkannotate.vim \
-syntax/svnannotate.vim \
-syntax/vcscommit.vim
-
 DELIMIT_FILES=autoload/delimitMate.vim \
 autoload/delimitMateTests.vim \
 doc/delimitMate.txt \
@@ -137,18 +122,21 @@ indent/ruby.vim \
 syntax/eruby.vim \
 syntax/ruby.vim
 
+NERDCOMMENTER_FILES=doc/NERD_commenter.txt \
+plugin/NERD_commenter.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscasts.vim \
 $(SNIPMATE_FILES) \
 $(SUPERTAB_FILES) \
 $(NERDTREE_FILES) \
-$(VCSCOMMAND_FILES) \
 $(DELIMIT_FILES) \
 $(FUZZYFINDER_FILES) \
 $(L9_FILES) \
 $(RAILS_FILES) \
-$(RUBY_FILES)
+$(RUBY_FILES) \
+$(NERDTREE_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -215,19 +203,6 @@ $(NERDTREE_FILES): bundles/nerdtree.git
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/nerdtree.git/$@ `pwd`/$@
 
-bundles/vcscommand.git: bundles
-	@echo fetch $@
-	@if test -d $@ ; \
-	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
-	else $(GIT) clone git://repo.or.cz/vcscommand $@ > $(NULL); \
-	fi
-
-$(VCSCOMMAND_FILES): bundles/vcscommand.git
-	@echo install $@
-	@mkdir -p `pwd`/`dirname $@`
-	@rm -f `pwd`/$@
-	@ln -s `pwd`/bundles/vcscommand.git/$@ `pwd`/$@
-
 bundles/delimitMate.git: bundles
 	@echo fetch $@
 	@if test -d $@ ; \
@@ -293,4 +268,18 @@ $(RUBY_FILES): bundles/ruby.git
 	@mkdir -p `pwd`/`dirname $@`
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/ruby.git/$@ `pwd`/$@
+
+bundles/nerdcommenter.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone https://github.com/scrooloose/nerdcommenter.git $@ > $(NULL); \
+	fi
+
+$(NERDCOMMENTER_FILES): bundles/nerdcommenter.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/nerdcommenter.git/$@ `pwd`/$@
+
 
