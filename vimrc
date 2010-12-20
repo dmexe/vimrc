@@ -25,7 +25,7 @@ set fileencoding=utf-8
 
 " first, enable status line always
 set laststatus=2
-set statusline=%<%f\ %y;\ %{VCSCommandGetStatusLine()}\ %h%m%r%=%l,%c%V\ %P
+set statusline=%<%f\ %y\ %{VCSCommandGetStatusLine()}\ %h%m%r%=%l,%c%V\ %P
 
 if has("gui_running")
 	" GUI is running or is about to start.
@@ -38,11 +38,14 @@ if has("gui_running")
 	hi ColorColumn guibg=#444444 ctermbg=246
 endif
 
-function! IndentAndComplete()
-	if strpart(getline('.'), 0, col('.') - 1) =~ '^\s*'
-		return "\<==>"
-	endif
-	return "\<tab>"
+" FuzzyFinder
+nmap <leader>e :FufFile<CR>
+nmap <leader>b :FufBuffer<CR>
+
+" Rails
+let s:filelistener = {}
+function s:filelistener.onComplete(item, method)
+	echo "Item: " . a:item . " Method : " . a:method
 endfunction
 
-nmap <leader>e :FufFile<CR>
+nnoremap <leader>c :call fuf#callbackfile#launch(RailsRoot() + "app/controllers", 0, '>', '', {})<CR>
