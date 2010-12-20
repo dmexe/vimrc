@@ -45,11 +45,12 @@ nmap <leader>b :FufBuffer<CR>
 " Rails
 let s:handler = {}
 function s:handler.onComplete(item, method)
-	execute ":e " . a:item 
+	execute ":e " . RailsRoot() . "/app/models/" . a:item
 endfunctio
 
 fun! MyTest()
-	call fuf#callbackitem#launch("", 0, '>', s:handler, ["a", "b", "c"], 0)
+	let dir = expand(RailsRoot() . "/app/models/")
+	call fuf#callbackitem#launch("", 0, '>', s:handler, split(glob('`(cd ' . dir.  ' && find . -type f | sed "s/^..//")`'), "\n"), 0)
 endf
 
-" nnoremap <leader>c :call fuf#callbackfile#launch(RailsRoot() + "app/controllers", 0, '>', '', {})<CR>
+autocmd User Rails nnoremap <leader>c :call MyTest()<CR>

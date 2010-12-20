@@ -13,7 +13,13 @@ ftplugin \
 plugin \
 snippets \
 syntax \
-nerdtree_plugin
+nerdtree_plugin \
+bin \
+compiler \
+etc \
+ftdetect \
+indent
+
 
 SNIPMATE_FILES=after/plugin/snipMate.vim \
 autoload/snipMate.vim \
