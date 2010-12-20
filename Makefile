@@ -15,7 +15,6 @@ snippets \
 syntax \
 nerdtree_plugin
 
-
 SNIPMATE_FILES=after/plugin/snipMate.vim \
 autoload/snipMate.vim \
 doc/snipMate.txt \
@@ -50,12 +49,28 @@ nerdtree_plugin/exec_menuitem.vim \
 nerdtree_plugin/fs_menu.vim \
 plugin/NERD_tree.vim
 
+VCSCOMMAND_FILES=doc/vcscommand.txt \
+plugin/vcsbzr.vim \
+plugin/vcscommand.vim \
+plugin/vcscvs.vim \
+plugin/vcsgit.vim \
+plugin/vcshg.vim \
+plugin/vcssvk.vim \
+plugin/vcssvn.vim \
+syntax/cvsannotate.vim \
+syntax/gitannotate.vim \
+syntax/hgannotate.vim \
+syntax/svkannotate.vim \
+syntax/svnannotate.vim \
+syntax/vcscommit.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscast.vim \
 $(SNIPMATE_FILES) \
 $(SUPERTAB_FILES) \
-$(NERDTREE_FILES)
+$(NERDTREE_FILES) \
+$(VCSCOMMAND_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -121,4 +136,17 @@ $(NERDTREE_FILES): bundles/nerdtree.git
 	@mkdir -p `pwd`/`dirname $@`
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/nerdtree.git/$@ `pwd`/$@
+
+bundles/vcscommand.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://repo.or.cz/vcscommand $@ > $(NULL); \
+	fi
+
+$(VCSCOMMAND_FILES): bundles/vcscommand.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/vcscommand.git/$@ `pwd`/$@
 

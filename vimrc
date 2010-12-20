@@ -8,10 +8,14 @@ set number
 
 set showmatch
 set incsearch
+set ignorecase
 
 set nobackup
+set autochdir
 
 colorscheme railscast
+set colorcolumn=80
+hi ColorColumn guibg=#444444 ctermbg=246
 
 set encoding=utf-8
 set termencoding=utf-8
@@ -32,5 +36,4 @@ function! IndentAndComplete()
 	endif
 	return "\<tab>"
 endfunction
-
 
