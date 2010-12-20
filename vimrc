@@ -30,7 +30,7 @@ set statusline=%<%f\ %y\ %{VCSCommandGetStatusLine()}\ %h%m%r%=%l,%c%V\ %P
 if has("gui_running")
 	" GUI is running or is about to start.
 	" Maximize gvim window.
-	set lines=50 columns=160
+	" set lines=50 columns=160
 	set guifont=Monaco:h12
 	set guioptions-=T  
 	set visualbell
@@ -39,18 +39,36 @@ if has("gui_running")
 endif
 
 " FuzzyFinder
+let g:fuf_abbrevMap = {
+	\ "^a:" : [
+	\   "~/apps/",
+	\ ],
+	\}
 nmap <leader>e :FufFile<CR>
 nmap <leader>b :FufBuffer<CR>
 
 " Rails
-let s:handler = {}
-function s:handler.onComplete(item, method)
-	execute ":e " . RailsRoot() . "/app/models/" . a:item
-endfunctio
-
-fun! MyTest()
-	let dir = expand(RailsRoot() . "/app/models/")
-	call fuf#callbackitem#launch("", 0, '>', s:handler, split(glob('`(cd ' . dir.  ' && find . -type f | sed "s/^..//")`'), "\n"), 0)
+fun! s:create_listener(dir)
+	let listener = {}
+	let listener.dir = a:dir
+	fun listener.onComplete(item, method)
+		execute ":tabfind " . self.dir . "/" . a:item
+	endf
+	return listener
 endf
 
-autocmd User Rails nnoremap <leader>c :call MyTest()<CR>
+fun! MyLauncher(dir)
+	let d = expand(RailsRoot() . a:dir)
+	let files = substitute(glob("`find " . d . " -type f`"), d . "/", '', 'g')
+	call fuf#callbackitem#launch("", 0, '>', s:create_listener(d), split(files, "\n"), 0)
+endf
+
+autocmd User Rails nnoremap <leader>M :call MyLauncher("/app/models/")<CR>
+autocmd User Rails nnoremap <leader>H :call MyLauncher("/app/helpers/")<CR>
+autocmd User Rails nnoremap <leader>C :call MyLauncher("/app/controllers/")<CR>
+autocmd User Rails nnoremap <leader>V :call MyLauncher("/app/views/")<CR>
+autocmd User Rails nnoremap <leader>L :call MyLauncher("/lib/")<CR>
+autocmd User Rails nnoremap <leader>F :call MyLauncher("/config/")<CR>
+autocmd User Rails nnoremap <leader>T :call MyLauncher("/test/")<CR>
+autocmd User Rails nnoremap <leader>R :call MyLauncher("/spec/")<CR>
+
