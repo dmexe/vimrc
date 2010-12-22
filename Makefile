@@ -125,6 +125,9 @@ syntax/ruby.vim
 NERDCOMMENTER_FILES=doc/NERD_commenter.txt \
 plugin/NERD_commenter.vim
 
+WEB_INDENT_FILES=indent/javascript.vim \
+indent/html.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscasts.vim \
@@ -136,7 +139,8 @@ $(FUZZYFINDER_FILES) \
 $(L9_FILES) \
 $(RAILS_FILES) \
 $(RUBY_FILES) \
-$(NERDTREE_FILES)
+$(NERDTREE_FILES) \
+$(WEB_INDENT_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -242,6 +246,21 @@ $(L9_FILES): bundles/l9
 	@mkdir -p `pwd`/`dirname $@`
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/l9/$@ `pwd`/$@
+
+bundles/web-indent: bundles
+	@echo fetch $@
+	@rm -rf `pwd`/$@
+	@rm -f `pwd`/$@.zip
+	$(WGET) -O $@.zip http://www.vim.org/scripts/download_script.php?src_id=13006
+	mkdir -p $@
+	(cd $@ && unzip ../web-indent.zip)
+
+$(WEB_INDENT_FILES): bundles/web-indent
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/web-indent/$@ `pwd`/$@
+
 
 bundles/rails.git: bundles
 	@echo fetch $@

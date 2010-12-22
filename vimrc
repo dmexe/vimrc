@@ -86,3 +86,6 @@ autocmd User Rails nnoremap <space>F :call RailsFuzzyLaunch("/config/")<CR>
 autocmd User Rails nnoremap <space>T :call RailsFuzzyLaunch("/test/")<CR>
 autocmd User Rails nnoremap <space>R :call RailsFuzzyLaunch("/spec/")<CR>
 
+compiler rspec
+nmap <Leader>fd :cf /tmp/autotest.txt<cr> :compiler rspec<cr>
+
