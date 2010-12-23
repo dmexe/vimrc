@@ -30,7 +30,7 @@ set autowriteall
 
 " first, enable status line always
 set laststatus=2
-set statusline=%<%f\ %y\ %h%m%r%=%l,%c%V\ %P
+set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
 
 " fold
 set nofoldenable
@@ -43,6 +43,9 @@ set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:f
 set viewoptions=cursor
 au BufWritePost,BufLeave,WinLeave ?* mkview
 au BufWinEnter ?* silent loadview
+
+" clipboard sharing in OSX (MacVim)
+set clipboard=unnamed
 
 " completions
 set wildmode=list:longest,list:full

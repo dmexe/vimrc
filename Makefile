@@ -128,6 +128,12 @@ plugin/NERD_commenter.vim
 WEB_INDENT_FILES=indent/javascript.vim \
 indent/html.vim
 
+GIT_FILES=doc/git-vim.txt \
+plugin/git.vim \
+syntax/git-diff.vim \
+syntax/git-log.vim \
+syntax/git-status.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscasts.vim \
@@ -140,7 +146,8 @@ $(L9_FILES) \
 $(RAILS_FILES) \
 $(RUBY_FILES) \
 $(NERDTREE_FILES) \
-$(WEB_INDENT_FILES)
+$(WEB_INDENT_FILES) \
+$(GIT_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -292,7 +299,7 @@ bundles/nerdcommenter.git: bundles
 	@echo fetch $@
 	@if test -d $@ ; \
 	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
-	else $(GIT) clone https://github.com/scrooloose/nerdcommenter.git $@ > $(NULL); \
+	else $(GIT) clone git://github.com/scrooloose/nerdcommenter.git $@ > $(NULL); \
 	fi
 
 $(NERDCOMMENTER_FILES): bundles/nerdcommenter.git
@@ -301,4 +308,16 @@ $(NERDCOMMENTER_FILES): bundles/nerdcommenter.git
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/nerdcommenter.git/$@ `pwd`/$@
 
+bundles/git.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/motemen/git-vim.git $@ > $(NULL); \
+	fi
+
+$(GIT_FILES): bundles/git.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/git.git/$@ `pwd`/$@
 
