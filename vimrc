@@ -67,10 +67,10 @@ if has("gui_running")
 	set guioptions-=v " disable vscroll
 	
 	set visualbell
-	
+
 	set colorcolumn=80
 	hi ColorColumn guibg=#444444 ctermbg=246
-	
+
 	" fullscreen options
  	set fuoptions=maxvert,maxhorz
 endif
@@ -108,6 +108,14 @@ autocmd User Rails nnoremap <space>t :call RailsFuzzyLaunch("/test")<CR>
 autocmd User Rails nnoremap <space>s :call RailsFuzzyLaunch("/spec")<CR>
 autocmd User Rails nnoremap <space>i :call RailsFuzzyLaunch("/app/mailers")<CR>
 autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
+autocmd User Rails nnoremap <space>g :call RailsFuzzyLaunch("/db/migrate")<CR>
+
+" Whitespaces
+function! StripTrailingWhitespace()
+  if !&binary && &filetype != 'diff'
+  	%s/\s\+$//e
+  endif
+endfunction
 
 function! StatuslineCurrentHighlight()
 	name = synIDattr(synID(line('.'),col('.'),1),'name')
@@ -126,4 +134,4 @@ map <CR> o<Esc>
 map <TAB> V=<Esc>^
 "imap <TAB> <Esc>V=<Esc>^
 
-
+autocmd BufWritePre * :call StripTrailingWhitespace()
