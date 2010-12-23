@@ -25,28 +25,8 @@ SNIPMATE_FILES=after/plugin/snipMate.vim \
 autoload/snipMate.vim \
 doc/snipMate.txt \
 ftplugin/html_snip_helper.vim \
-plugin/snipMate.vim \
-snippets/_.snippets \
-snippets/autoit.snippets \
-snippets/c.snippets \
-snippets/cpp.snippets \
-snippets/erlang.snippets \
-snippets/html.snippets \
-snippets/java.snippets \
-snippets/javascript.snippets \
-snippets/mako.snippets \
-snippets/objc.snippets \
-snippets/perl.snippets \
-snippets/php.snippets \
-snippets/python.snippets \
-snippets/ruby.snippets \
-snippets/sh.snippets \
-snippets/snippet.snippets \
-snippets/tcl.snippets \
-snippets/tex.snippets \
-snippets/vim.snippets \
-snippets/zsh.snippets \
-syntax/snippet.vim
+plugin/snipMate.vim
+
 
 SUPERTAB_FILES=plugin/supertab.vim
 
@@ -137,6 +117,7 @@ syntax/git-status.vim
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscasts.vim \
+snippets \
 $(SNIPMATE_FILES) \
 $(SUPERTAB_FILES) \
 $(NERDTREE_FILES) \
@@ -321,3 +302,13 @@ $(GIT_FILES): bundles/git.git
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/git.git/$@ `pwd`/$@
 
+bundles/snipmate-snippets.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/dima-exe/snipmate-snippets.git $@ > $(NULL); \
+	fi
+
+snippets: bundles/snipmate-snippets.git
+	@echo link $@
+	@ln -s `pwd`/bundles/snipmate-snippets.git $@
