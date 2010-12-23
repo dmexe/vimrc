@@ -32,6 +32,22 @@ set autowriteall
 set laststatus=2
 set statusline=%<%f\ %y\ %h%m%r%=%l,%c%V\ %P
 
+" fold
+set nofoldenable
+set foldmethod=syntax
+set foldlevel=1
+set foldnestmax=2
+set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
+
+" save/restore cursor position
+set viewoptions=cursor
+au BufWritePost,BufLeave,WinLeave ?* mkview
+au BufWinEnter ?* silent loadview
+
+" completions
+set wildmode=list:longest,list:full
+set complete=.,w,t
+
 if has("gui_running")
 	" GUI is running or is about to start.
 	" Maximize gvim window.
@@ -68,7 +84,7 @@ endf
 
 fun! RailsFuzzyLaunch(dir)
 	let d = expand(RailsRoot() . a:dir)
-	let cmd = "`find " . d . " -type f ! -regex \"^.*\/[.#_~].*$\"`"
+	let cmd = "`find " . d . " -type f ! -regex \"^.*\/[.#~].*$\"`"
 	let files = substitute(glob(cmd), d . "/", '', 'g')
 	if empty(files)
 		echo "empty"
@@ -77,15 +93,14 @@ fun! RailsFuzzyLaunch(dir)
 	endif
 endf
 
-autocmd User Rails nnoremap <space>M :call RailsFuzzyLaunch("/app/models/")<CR>
-autocmd User Rails nnoremap <space>H :call RailsFuzzyLaunch("/app/helpers/")<CR>
-autocmd User Rails nnoremap <space>C :call RailsFuzzyLaunch("/app/controllers/")<CR>
-autocmd User Rails nnoremap <space>V :call RailsFuzzyLaunch("/app/views/")<CR>
-autocmd User Rails nnoremap <space>L :call RailsFuzzyLaunch("/lib/")<CR>
-autocmd User Rails nnoremap <space>F :call RailsFuzzyLaunch("/config/")<CR>
-autocmd User Rails nnoremap <space>T :call RailsFuzzyLaunch("/test/")<CR>
-autocmd User Rails nnoremap <space>R :call RailsFuzzyLaunch("/spec/")<CR>
-
-compiler rspec
-nmap <Leader>fd :cf /tmp/autotest.txt<cr> :compiler rspec<cr>
+autocmd User Rails nnoremap <space>m :call RailsFuzzyLaunch("/app/models")<CR>
+autocmd User Rails nnoremap <space>h :call RailsFuzzyLaunch("/app/helpers")<CR>
+autocmd User Rails nnoremap <space>c :call RailsFuzzyLaunch("/app/controllers")<CR>
+autocmd User Rails nnoremap <space>v :call RailsFuzzyLaunch("/app/views")<CR>
+autocmd User Rails nnoremap <space>l :call RailsFuzzyLaunch("/lib")<CR>
+autocmd User Rails nnoremap <space>f :call RailsFuzzyLaunch("/config/")<CR>
+autocmd User Rails nnoremap <space>t :call RailsFuzzyLaunch("/test")<CR>
+autocmd User Rails nnoremap <space>s :call RailsFuzzyLaunch("/spec")<CR>
+autocmd User Rails nnoremap <space>i :call RailsFuzzyLaunch("/app/mailers")<CR>
+autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
 
