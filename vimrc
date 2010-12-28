@@ -19,6 +19,7 @@ syntax on
 filetype on
 filetype indent on
 filetype plugin on
+
 colorscheme railscasts
 
 set encoding=utf-8
@@ -51,12 +52,19 @@ set clipboard=unnamed
 set wildmode=list:longest,list:full
 set complete=.,w,t
 
+set scrolloff=3
+set sidescrolloff=7
+set sidescroll=1
+
 if has("gui_running")
 	" GUI is running or is about to start.
 	" Maximize gvim window.
-	" set lines=50 columns=160
 	set guifont=Monaco:h12
-	set guioptions-=T  
+	
+	set guioptions-=T " disable toolbar
+	set guioptions-=h " disable hscroll
+	set guioptions-=v " disable vscroll
+	
 	set visualbell
 	
 	set colorcolumn=80
@@ -107,3 +115,19 @@ autocmd User Rails nnoremap <space>s :call RailsFuzzyLaunch("/spec")<CR>
 autocmd User Rails nnoremap <space>i :call RailsFuzzyLaunch("/app/mailers")<CR>
 autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
 
+function! StatuslineCurrentHighlight()
+	name = synIDattr(synID(line('.'),col('.'),1),'name')
+	if name == ''
+		return ''
+	else
+		return '[' . name . ']'
+	endif
+endfunction
+
+" remap enter/shift-enter to insert blank lines
+map <S-Enter> O<Esc>
+map <CR> o<Esc>
+
+" remap tab to indent block
+map <TAB> V=<Esc>^
+"imap <TAB> <Esc>V=<Esc>^

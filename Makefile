@@ -153,7 +153,7 @@ bundles/railscast.git: bundles
 
 colors/railscasts.vim: bundles/railscast.git
 	@echo link $@
-	@rm -f `pwd`/colors/railscast.vim
+	@rm -f `pwd`/colors/railscasts.vim
 	@ln -s `pwd`/bundles/railscast.git/railscasts.vim `pwd`/$@
 
 bundles/snipmate.git: bundles
@@ -312,3 +312,4 @@ bundles/snipmate-snippets.git: bundles
 snippets: bundles/snipmate-snippets.git
 	@echo link $@
 	@ln -s `pwd`/bundles/snipmate-snippets.git $@
+
