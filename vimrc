@@ -81,8 +81,12 @@ let g:fuf_abbrevMap = {
 	\   "~/apps/",
 	\ ],
 	\}
+
+let g:fuf_modesDisable = ["mrucmd"]
+
 nmap <leader>e :FufFile<CR>
 nmap <leader>b :FufBuffer<CR>
+nmap <leader>R :FufMruFile<CR>
 
 " command-t
 nmap <silent> <leader>t :CommandT<CR>
