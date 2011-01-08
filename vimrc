@@ -4,6 +4,7 @@ set smartindent
 
 set tabstop=2
 set shiftwidth=2
+set expandtab
 set number
 
 set showmatch
@@ -83,25 +84,14 @@ let g:fuf_abbrevMap = {
 nmap <leader>e :FufFile<CR>
 nmap <leader>b :FufBuffer<CR>
 
+" command-t
+nmap <silent> <leader>t :CommandT<CR>
+let g:CommandTMaxHeight=25
+
 " Rails
-fun! s:create_listener(dir)
-	let listener = {}
-	let listener.dir = a:dir
-	fun listener.onComplete(item, method)
-		execute ":find " . self.dir . "/" . a:item
-	endf
-	return listener
-endf
 
 fun! RailsFuzzyLaunch(dir)
-	let d = expand(RailsRoot() . a:dir)
-	let cmd = "`find " . d . " -type f ! -regex \"^.*\/[.#~].*$\"`"
-	let files = substitute(glob(cmd), d . "/", '', 'g')
-	if empty(files)
-		echo "empty"
-	else
-		call fuf#callbackitem#launch("", 0, '>', s:create_listener(d), split(files, "\n"), 0)
-	endif
+  execute ":CommandT " . RailsRoot() . a:dir
 endf
 
 autocmd User Rails nnoremap <space>m :call RailsFuzzyLaunch("/app/models")<CR>
@@ -131,3 +121,5 @@ map <CR> o<Esc>
 " remap tab to indent block
 map <TAB> V=<Esc>^
 "imap <TAB> <Esc>V=<Esc>^
+
+

@@ -114,6 +114,15 @@ syntax/git-diff.vim \
 syntax/git-log.vim \
 syntax/git-status.vim
 
+COMMAND_T_FILES=bin/htmldiff \
+								bin/ldiff \
+								bin/rake \
+								bin/rspec \
+								doc/command-t.txt \
+								plugin/command-t.vim \
+								ruby/command-t
+COMMAND_T_BUNDLE=ruby/command-t/ext.bundle
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscasts.vim \
@@ -128,7 +137,9 @@ $(RAILS_FILES) \
 $(RUBY_FILES) \
 $(NERDTREE_FILES) \
 $(WEB_INDENT_FILES) \
-$(GIT_FILES)
+$(GIT_FILES) \
+$(COMMAND_T_FILES) \
+$(COMMAND_T_BUNDLE)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -312,4 +323,21 @@ bundles/snipmate-snippets.git: bundles
 snippets: bundles/snipmate-snippets.git
 	@echo link $@
 	@ln -s `pwd`/bundles/snipmate-snippets.git $@
+
+bundles/command-t.git: bundles
+	@echo fetch
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://git.wincent.com/command-t.git $@ > $(NULL); \
+	fi
+
+$(COMMAND_T_FILES): bundles/command-t.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/command-t.git/$@ `pwd`/$@
+
+$(COMMAND_T_BUNDLE): bundles/command-t.git
+	@echo install $@
+	@(cd bundles/command-t.git/`dirname $@` && rake make)
 
