@@ -53,7 +53,7 @@ set clipboard=unnamed
 set wildmode=list:longest,list:full
 set complete=.,w,t
 
-set scrolloff=3
+set scrolloff=5
 set sidescrolloff=7
 set sidescroll=1
 
