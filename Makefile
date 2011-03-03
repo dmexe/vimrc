@@ -18,7 +18,9 @@ bin \
 compiler \
 etc \
 ftdetect \
-indent
+indent \
+ruby \
+view
 
 
 SNIPMATE_FILES=after/plugin/snipMate.vim \
@@ -105,8 +107,10 @@ syntax/ruby.vim
 NERDCOMMENTER_FILES=doc/NERD_commenter.txt \
 plugin/NERD_commenter.vim
 
-WEB_INDENT_FILES=indent/javascript.vim \
-indent/html.vim
+WEB_INDENT_FILES=indent/html.vim
+# indent/javascript.vim \
+
+JAVASCRIPT_INDENT_FILES=indent/javascript.vim
 
 GIT_FILES=doc/git-vim.txt \
 plugin/git.vim \
@@ -123,6 +127,11 @@ COMMAND_T_FILES=bin/htmldiff \
 								ruby/command-t
 COMMAND_T_BUNDLE=ruby/command-t/ext.bundle
 
+TABULAR_FILES=after/plugin/TabularMaps.vim \
+autoload/tabular.vim \
+doc/Tabular.txt \
+plugin/Tabular.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscasts.vim \
@@ -137,9 +146,11 @@ $(RAILS_FILES) \
 $(RUBY_FILES) \
 $(NERDTREE_FILES) \
 $(WEB_INDENT_FILES) \
+$(JAVASCRIPT_INDENT_FILES) \
 $(GIT_FILES) \
 $(COMMAND_T_FILES) \
-$(COMMAND_T_BUNDLE)
+$(COMMAND_T_BUNDLE) \
+$(TABULAR_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -165,7 +176,7 @@ bundles/railscast.git: bundles
 colors/railscasts.vim: bundles/railscast.git
 	@echo link $@
 	@rm -f `pwd`/colors/railscasts.vim
-	@ln -s `pwd`/bundles/railscast.git/railscasts.vim `pwd`/$@
+	@ln -s `pwd`/bundles/railscast.git/colors/railscasts.vim `pwd`/$@
 
 bundles/snipmate.git: bundles
 	@echo fetch $@
@@ -260,6 +271,18 @@ $(WEB_INDENT_FILES): bundles/web-indent
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/web-indent/$@ `pwd`/$@
 
+bundles/javascript-indent: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/vim-scripts/Simple-Javascript-Indenter.git $@ > $(NULL); \
+	fi
+
+$(JAVASCRIPT_INDENT_FILES): bundles/javascript-indent
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/javascript-indent/$@ `pwd`/$@
 
 bundles/rails.git: bundles
 	@echo fetch $@
@@ -341,3 +364,15 @@ $(COMMAND_T_BUNDLE): bundles/command-t.git
 	@echo install $@
 	@(cd bundles/command-t.git/`dirname $@` && rake make)
 
+bundles/tabular.git: bundles
+	@echo fetch
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/godlygeek/tabular.git $@ > $(NULL); \
+	fi
+
+$(TABULAR_FILES): bundles/tabular.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/tabular.git/$@ `pwd`/$@
