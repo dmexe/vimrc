@@ -111,6 +111,7 @@ WEB_INDENT_FILES=indent/html.vim
 # indent/javascript.vim \
 
 JAVASCRIPT_INDENT_FILES=indent/javascript.vim
+JAVASCRIPT_LINT_FILES=plugin/javaScriptLint.vim
 
 GIT_FILES=doc/git-vim.txt \
 plugin/git.vim \
@@ -147,6 +148,7 @@ $(RUBY_FILES) \
 $(NERDTREE_FILES) \
 $(WEB_INDENT_FILES) \
 $(JAVASCRIPT_INDENT_FILES) \
+$(JAVASCRIPT_LINT_FILES) \
 $(GIT_FILES) \
 $(COMMAND_T_FILES) \
 $(COMMAND_T_BUNDLE) \
@@ -279,6 +281,19 @@ bundles/javascript-indent: bundles
 	fi
 
 $(JAVASCRIPT_INDENT_FILES): bundles/javascript-indent
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/javascript-indent/$@ `pwd`/$@
+
+bundles/javascript-lint: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/joestelmach/javaScriptLint.vim.git $@ > $(NULL); \
+	fi
+
+$(JAVASCRIPT_LINT_FILES): bundles/javascript-lint
 	@echo install $@
 	@mkdir -p `pwd`/`dirname $@`
 	@rm -f `pwd`/$@
