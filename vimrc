@@ -60,12 +60,12 @@ set sidescroll=1
 if has("gui_running")
 	" GUI is running or is about to start.
 	" Maximize gvim window.
-	set guifont=Monaco:h12
-	
+	set guifont=Monaco:h13
+
 	set guioptions-=T " disable toolbar
 	set guioptions-=h " disable hscroll
 	set guioptions-=v " disable vscroll
-	
+
 	set visualbell
 
 	set colorcolumn=80

@@ -133,6 +133,15 @@ autoload/tabular.vim \
 doc/Tabular.txt \
 plugin/Tabular.vim
 
+COFFESCRIPT_FILES=after/syntax/html.vim \
+doc/coffee-script.txt \
+ftdetect/coffee.vim \
+ftdetect/eco.vim \
+ftplugin/coffee.vim \
+indent/coffee.vim \
+syntax/coffee.vim \
+syntax/eco.vim
+
 all: bundles colors \
 $(HOME)/.vimrc \
 colors/railscasts.vim \
@@ -152,7 +161,8 @@ $(JAVASCRIPT_LINT_FILES) \
 $(GIT_FILES) \
 $(COMMAND_T_FILES) \
 $(COMMAND_T_BUNDLE) \
-$(TABULAR_FILES)
+$(TABULAR_FILES) \
+$(COFFESCRIPT_FILES)
 
 clean:
 	@for i in $(WORK_DIRS) ; do \
@@ -297,7 +307,7 @@ $(JAVASCRIPT_LINT_FILES): bundles/javascript-lint
 	@echo install $@
 	@mkdir -p `pwd`/`dirname $@`
 	@rm -f `pwd`/$@
-	@ln -s `pwd`/bundles/javascript-indent/$@ `pwd`/$@
+	@ln -s `pwd`/bundles/javascript-lint/`basename $@` `pwd`/$@
 
 bundles/rails.git: bundles
 	@echo fetch $@
@@ -363,7 +373,7 @@ snippets: bundles/snipmate-snippets.git
 	@ln -s `pwd`/bundles/snipmate-snippets.git $@
 
 bundles/command-t.git: bundles
-	@echo fetch
+	@echo fetch $@
 	@if test -d $@ ; \
 	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
 	else $(GIT) clone git://git.wincent.com/command-t.git $@ > $(NULL); \
@@ -380,7 +390,7 @@ $(COMMAND_T_BUNDLE): bundles/command-t.git
 	@(cd bundles/command-t.git/`dirname $@` && rake make)
 
 bundles/tabular.git: bundles
-	@echo fetch
+	@echo fetch $@
 	@if test -d $@ ; \
 	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
 	else $(GIT) clone git://github.com/godlygeek/tabular.git $@ > $(NULL); \
@@ -391,3 +401,17 @@ $(TABULAR_FILES): bundles/tabular.git
 	@mkdir -p `pwd`/`dirname $@`
 	@rm -f `pwd`/$@
 	@ln -s `pwd`/bundles/tabular.git/$@ `pwd`/$@
+
+bundles/coffescript.git: bundles
+	@echo fetch $@
+	@if test -d $@ ; \
+	then (cd $@ && $(GIT) pull --rebase > $(NULL)); \
+	else $(GIT) clone git://github.com/kchmck/vim-coffee-script.git $@ > $(NULL); \
+	fi
+
+$(COFFESCRIPT_FILES): bundles/coffescript.git
+	@echo install $@
+	@mkdir -p `pwd`/`dirname $@`
+	@rm -f `pwd`/$@
+	@ln -s `pwd`/bundles/coffescript.git/$@ `pwd`/$@
+
