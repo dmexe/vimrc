@@ -69,6 +69,8 @@ bundle/vim-ruby.git: bundle
 
 bundle/command-t.git: bundle
 	$(call gitco,git://git.wincent.com/command-t.git,$@)
+	@echo build $@ extension
+	@(cd $@ && rake make -q)
 
 bundle/vim-coffee-script.git: bundle
 	$(call gitco,git://github.com/kchmck/vim-coffee-script,$@)
