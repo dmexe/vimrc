@@ -17,7 +17,8 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/vim-ruby.git \
 				bundle/command-t.git \
 				bundle/vim-coffee-script.git \
-				bundle/git-vim.git
+				bundle/git-vim.git \
+				bundle/syntastic.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -74,6 +75,9 @@ bundle/vim-coffee-script.git: bundle
 
 bundle/git-vim.git: bundle
 	$(call gitco,git://github.com/motemen/git-vim.git,$@)
+
+bundle/syntastic.git: bundle
+	$(call gitco,git://github.com/scrooloose/syntastic.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \

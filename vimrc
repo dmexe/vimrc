@@ -36,6 +36,11 @@ set autowriteall
 set laststatus=2
 set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
 
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
 " fold
 set nofoldenable
 set foldmethod=syntax
