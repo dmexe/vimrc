@@ -26,7 +26,7 @@ gitco=@echo fetch $(2) \($(1)\);\
 			else $(GIT) clone -q $(1) $(2) > $(NULL) ;\
 			fi
 
-all: $(PATHOGEN) $(BUNDLES) snippets
+all: $(PATHOGEN) $(BUNDLES) $(HOME)/.vimrc
 
 bundle autoload:
 	mkdir -p $@
@@ -86,4 +86,8 @@ clean:
 	done
 	@echo rm snippets
 	@rm -f snippets
+
+$(HOME)/.vimrc:
+	@echo link $@
+	@ln -sf `pwd`/vimrc $(HOME)/.vimrc
 
