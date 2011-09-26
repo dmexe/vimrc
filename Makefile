@@ -18,8 +18,7 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/command-t.git \
 				bundle/vim-coffee-script.git \
 				bundle/git-vim.git \
-				bundle/syntastic.git \
-				bundle/UltiSnips.git
+				bundle/syntastic.git
 
 EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
@@ -104,4 +103,6 @@ clean:
 $(HOME)/.vimrc:
 	@echo link $@
 	@ln -sf `pwd`/vimrc $(HOME)/.vimrc
+
+
 

@@ -132,6 +132,11 @@ augroup MyRailsFt
   autocmd BufNewFile,BufRead */db/migrate/*.rb       if exists("b:rails_root") | set ft+=.rails_migration  | endif
 augroup end
 
+augroup MyRubyFt
+  autocmd!
+  autocmd BufNewFile,BufRead *.rake set ft+=.rake
+augroup end
+
 " Whitespaces
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
@@ -157,3 +162,8 @@ map <TAB> V=<Esc>^
 "imap <TAB> <Esc>V=<Esc>^
 
 autocmd BufWritePre * :call StripTrailingWhitespace()
+
+" snipMate
+let g:snippets_dir = "~/.vim/snipmate.snippets"
+call ReloadAllSnippets()
+
