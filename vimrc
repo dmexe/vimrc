@@ -37,9 +37,7 @@ set laststatus=2
 set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
 
 " syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+let g:syntastic_enable_signs=1
 
 " fold
 set nofoldenable
