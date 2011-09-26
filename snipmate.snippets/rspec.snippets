@@ -2,37 +2,27 @@ snippet des
 	describe "${1:description}" do
 		${2}
 	end
-
 snippet it
 	it "should ${1}" do
 		${2}
 	end
-
 snippet be
 	before(:each) do
 		${1}
 	end
-
 snippet sh
 	should ${1}
-
 snippet shn
 	should_not ${1}
-
 snippet F
-	Factory(:${1})
-
+	Factory(:${1})${2}
 snippet Fb
-	Factory.build(:${1})
-
+	Factory.build(:${1})${2}
 snippet st
-	stub(${1})
-
+	stub(${1})${2}
 snippet mo
-	mock(${1})
-
+	mock(${1})${2}
 snippet let
 	let(:${1}) { ${2} }
-
 snippet sub
 	subject { ${1} }
