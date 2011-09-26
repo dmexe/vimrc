@@ -15,11 +15,13 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/javaScriptLint.vim.git \
 				bundle/vim-rails.git \
 				bundle/vim-ruby.git \
-				bundle/command-t.git/ruby/command-t/ext.bundle \
+				bundle/command-t.git \
 				bundle/vim-coffee-script.git \
 				bundle/git-vim.git \
 				bundle/syntastic.git \
 				bundle/UltiSnips.git
+
+EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -28,7 +30,7 @@ gitco=@echo fetch $(2) \($(1)\);\
 			else $(GIT) clone -q $(1) $(2) > $(NULL) ;\
 			fi
 
-all: $(PATHOGEN) $(BUNDLES) $(HOME)/.vimrc
+all: $(PATHOGEN) $(BUNDLES) $(EXTENSIONS) $(HOME)/.vimrc
 
 bundle autoload:
 	mkdir -p $@
