@@ -15,10 +15,11 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/javaScriptLint.vim.git \
 				bundle/vim-rails.git \
 				bundle/vim-ruby.git \
-				bundle/command-t.git \
+				bundle/command-t.git/ruby/command-t/ext.bundle \
 				bundle/vim-coffee-script.git \
 				bundle/git-vim.git \
-				bundle/syntastic.git
+				bundle/syntastic.git \
+				bundle/UltiSnips.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -67,10 +68,12 @@ bundle/vim-rails.git: bundle
 bundle/vim-ruby.git: bundle
 	$(call gitco,git://github.com/vim-ruby/vim-ruby.git,$@)
 
+bundle/command-t.git/ruby/command-t/ext.bundle: bundle/command-t.git
+	@echo build $@ extension
+	@(cd bundle/command-t.git && rake make -q)
+
 bundle/command-t.git: bundle
 	$(call gitco,git://git.wincent.com/command-t.git,$@)
-	@echo build $@ extension
-	@(cd $@ && rake make -q)
 
 bundle/vim-coffee-script.git: bundle
 	$(call gitco,git://github.com/kchmck/vim-coffee-script,$@)
@@ -80,6 +83,9 @@ bundle/git-vim.git: bundle
 
 bundle/syntastic.git: bundle
 	$(call gitco,git://github.com/scrooloose/syntastic.git,$@)
+
+bundle/UltiSnips.git: bundle
+	$(call gitco,git://github.com/vim-scripts/UltiSnips.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
