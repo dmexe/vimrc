@@ -105,17 +105,32 @@ fun! RailsFuzzyLaunch(dir)
   execute ":CommandT " . RailsRoot() . a:dir
 endf
 
-autocmd User Rails nnoremap <space>m :call RailsFuzzyLaunch("/app/models")<CR>
-autocmd User Rails nnoremap <space>h :call RailsFuzzyLaunch("/app/helpers")<CR>
-autocmd User Rails nnoremap <space>c :call RailsFuzzyLaunch("/app/controllers")<CR>
-autocmd User Rails nnoremap <space>v :call RailsFuzzyLaunch("/app/views")<CR>
-autocmd User Rails nnoremap <space>l :call RailsFuzzyLaunch("/lib")<CR>
-autocmd User Rails nnoremap <space>f :call RailsFuzzyLaunch("/config/")<CR>
-autocmd User Rails nnoremap <space>t :call RailsFuzzyLaunch("/test")<CR>
-autocmd User Rails nnoremap <space>s :call RailsFuzzyLaunch("/spec")<CR>
-autocmd User Rails nnoremap <space>i :call RailsFuzzyLaunch("/app/mailers")<CR>
-autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
-autocmd User Rails nnoremap <space>g :call RailsFuzzyLaunch("/db/migrate")<CR>
+augroup MyRails
+  autocmd!
+  autocmd User Rails nnoremap <space>m :call RailsFuzzyLaunch("/app/models")<CR>
+  autocmd User Rails nnoremap <space>h :call RailsFuzzyLaunch("/app/helpers")<CR>
+  autocmd User Rails nnoremap <space>c :call RailsFuzzyLaunch("/app/controllers")<CR>
+  autocmd User Rails nnoremap <space>v :call RailsFuzzyLaunch("/app/views")<CR>
+  autocmd User Rails nnoremap <space>l :call RailsFuzzyLaunch("/lib")<CR>
+  autocmd User Rails nnoremap <space>f :call RailsFuzzyLaunch("/config/")<CR>
+  autocmd User Rails nnoremap <space>t :call RailsFuzzyLaunch("/test")<CR>
+  autocmd User Rails nnoremap <space>s :call RailsFuzzyLaunch("/spec")<CR>
+  autocmd User Rails nnoremap <space>i :call RailsFuzzyLaunch("/app/mailers")<CR>
+  autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
+  autocmd User Rails nnoremap <space>g :call RailsFuzzyLaunch("/db/migrate")<CR>
+augroup end
+
+augroup MyRailsFt
+  autocmd!
+  autocmd BufNewFile,BufRead */app/models/*.rb       if exists("b:rails_root") | set ft+=.rails_model      | endif
+  autocmd BufNewFile,BufRead */app/helpers/*.rb      if exists("b:rails_root") | set ft+=.rails_helper     | endif
+  autocmd BufNewFile,BufRead */app/controllers/*.rb  if exists("b:rails_root") | set ft+=.rails_controller | endif
+  autocmd BufNewFile,BufRead */spec/*.rb             if exists("b:rails_root") | set ft+=.rspec            | endif
+  autocmd BufNewFile,BufRead */spec/models/*.rb      if exists("b:rails_root") | set ft+=.rspec_model      | endif
+  autocmd BufNewFile,BufRead */spec/controllers/*.rb if exists("b:rails_root") | set ft+=.rspec_controller | endif
+  autocmd BufNewFile,BufRead */spec/helpers/*.rb     if exists("b:rails_root") | set ft+=.rspec_helper     | endif
+  autocmd BufNewFile,BufRead */db/migrate/*.rb       if exists("b:rails_root") | set ft+=.rails_migration  | endif
+augroup end
 
 " Whitespaces
 function! StripTrailingWhitespace()
