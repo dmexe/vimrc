@@ -24,6 +24,8 @@ filetype indent on
 filetype plugin on
 
 colorscheme railscasts
+hi Normal guibg=#1B2426
+
 
 set encoding=utf-8
 set termencoding=utf-8
@@ -163,5 +165,4 @@ autocmd BufWritePre * :call StripTrailingWhitespace()
 
 " snipMate
 let g:snippets_dir = "~/.vim/snipmate.snippets"
-call ReloadAllSnippets()
-
+"call ReloadAllSnippets()
