@@ -98,6 +98,8 @@ nmap <leader>R :FufMruFile<CR>
 " command-t
 nmap <silent> <leader>t :CommandT<CR>
 let g:CommandTMaxHeight=25
+let g:CommandTMaxDepth=10
+
 
 " Rails
 
