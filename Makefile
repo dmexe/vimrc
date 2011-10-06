@@ -18,7 +18,8 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/command-t.git \
 				bundle/vim-coffee-script.git \
 				bundle/git-vim.git \
-				bundle/syntastic.git
+				bundle/syntastic.git \
+				bundle/vim-actionscript.git
 
 EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
@@ -69,7 +70,7 @@ bundle/vim-rails.git: bundle
 bundle/vim-ruby.git: bundle
 	$(call gitco,git://github.com/vim-ruby/vim-ruby.git,$@)
 
-bundle/command-t.git/ruby/command-t/ext.bundle: bundle/command-t.git
+bundle/command-t.git/ruby/command-t/ext.bundle: bundle/command-t.git bundle/command-t.git/ruby/command-t/ext.c
 	@echo build $@ extension
 	@(cd bundle/command-t.git && rake make -q)
 
@@ -88,6 +89,8 @@ bundle/syntastic.git: bundle
 bundle/UltiSnips.git: bundle
 	$(call gitco,git://github.com/vim-scripts/UltiSnips.git,$@)
 
+bundle/vim-actionscript.git: bundle
+	$(call gitco,git://github.com/jeroenbourgois/vim-actionscript.git,$@)
 clean:
 	@for i in $(PATHOGEN) ; do \
 	echo rm $$i ; \

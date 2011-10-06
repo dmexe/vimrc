@@ -98,14 +98,17 @@ nmap <leader>R :FufMruFile<CR>
 " command-t
 nmap <silent> <leader>t :CommandT<CR>
 let g:CommandTMaxHeight=25
-let g:CommandTMaxDepth=10
+let g:CommandTMaxDepth=8
+let g:CommandTMaxFiles=1000
 
 
 " Rails
-
 fun! RailsFuzzyLaunch(dir)
   execute ":CommandT " . RailsRoot() . a:dir
 endf
+
+" actionscript
+au BufNewFile,BufRead *.as	setf actionscript
 
 augroup MyRails
   autocmd!

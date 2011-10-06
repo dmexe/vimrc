@@ -14,6 +14,13 @@ snippet vp
 		subject.${1:name} = ""
 		should have(1).error_on(:$1)
 	end${2}
+snippet vu
+	it "should be unique" do
+		subject.save!
+		new_${1:post} = Factory.build(:$1, :${2:user_id} => subject.$2)
+		new_$1.should_not be_valid
+		new_$1.should have(1).error_on(:$2)
+	end
 snippet desas
 	describe '(associations)' do
 		before(:each) do
