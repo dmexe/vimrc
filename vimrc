@@ -123,6 +123,7 @@ augroup MyRails
   autocmd User Rails nnoremap <space>i :call RailsFuzzyLaunch("/app/mailers")<CR>
   autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
   autocmd User Rails nnoremap <space>g :call RailsFuzzyLaunch("/db/migrate")<CR>
+  autocmd User Rails nnoremap <space>j :call RailsFuzzyLaunch("/app/assets/javascripts")<CR>
 augroup end
 
 augroup MyRailsFt

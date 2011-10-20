@@ -19,7 +19,9 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/vim-coffee-script.git \
 				bundle/git-vim.git \
 				bundle/syntastic.git \
-				bundle/vim-actionscript.git
+				bundle/vim-actionscript.git \
+				bundle/vim-jade.git \
+				bundle/nerdtree.git
 
 EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
@@ -91,6 +93,13 @@ bundle/UltiSnips.git: bundle
 
 bundle/vim-actionscript.git: bundle
 	$(call gitco,git://github.com/jeroenbourgois/vim-actionscript.git,$@)
+
+bundle/vim-jade.git: bundle
+	$(call gitco,git://github.com/digitaltoad/vim-jade.git,$@)
+
+bundle/nerdtree.git: bundle
+	$(call gitco,git://github.com/scrooloose/nerdtree.git,$@)
+
 clean:
 	@for i in $(PATHOGEN) ; do \
 	echo rm $$i ; \
