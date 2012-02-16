@@ -188,3 +188,6 @@ autocmd BufWritePre * :call StripTrailingWhitespace()
 let g:snippets_dir = "~/.vim/snipmate.snippets"
 "call ReloadAllSnippets()
 
+" NERDTree
+let g:NERDTreeDirArrows=1
+let g:NERDTreeMinimalUI=1
