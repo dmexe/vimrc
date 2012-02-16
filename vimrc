@@ -26,8 +26,8 @@ filetype plugin on
 colorscheme railscasts
 hi Normal guibg=#1B2426
 
-
 set encoding=utf-8
+
 set termencoding=utf-8
 set fileencoding=utf-8
 
@@ -124,6 +124,7 @@ augroup MyRails
   autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
   autocmd User Rails nnoremap <space>g :call RailsFuzzyLaunch("/db/migrate")<CR>
   autocmd User Rails nnoremap <space>j :call RailsFuzzyLaunch("/app/assets/javascripts")<CR>
+  autocmd User Rails map <D-r> :Rake<CR>
 augroup end
 
 augroup MyRailsFt
@@ -138,9 +139,23 @@ augroup MyRailsFt
   autocmd BufNewFile,BufRead */db/migrate/*.rb       if exists("b:rails_root") | set ft+=.rails_migration  | endif
 augroup end
 
+" Ruby
 augroup MyRubyFt
   autocmd!
   autocmd BufNewFile,BufRead *.rake set ft+=.rake
+augroup end
+
+augroup MyRuby
+  autocmd!
+  autocmd FileType cucumber compiler cucumber | setl makeprg=cucumber\ \"%:p\"
+  autocmd FileType ruby
+        \ if expand('%') =~# '_test\.rb$' |
+        \   compiler rubyunit | setl makeprg=testrb\ \"%:p\" |
+        \ elseif expand('%') =~# '_spec\.rb$' |
+        \   compiler rspec | setl makeprg=rspec\ \"%:p\" |
+        \ else |
+        \   compiler ruby | setl makeprg=ruby\ -w\ \"%:p\" |
+        \ endif
 augroup end
 
 " Whitespaces
@@ -172,3 +187,4 @@ autocmd BufWritePre * :call StripTrailingWhitespace()
 " snipMate
 let g:snippets_dir = "~/.vim/snipmate.snippets"
 "call ReloadAllSnippets()
+

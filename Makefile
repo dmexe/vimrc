@@ -19,7 +19,6 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/vim-coffee-script.git \
 				bundle/git-vim.git \
 				bundle/syntastic.git \
-				bundle/vim-actionscript.git \
 				bundle/vim-jade.git \
 				bundle/nerdtree.git
 
@@ -90,9 +89,6 @@ bundle/syntastic.git: bundle
 
 bundle/UltiSnips.git: bundle
 	$(call gitco,git://github.com/vim-scripts/UltiSnips.git,$@)
-
-bundle/vim-actionscript.git: bundle
-	$(call gitco,git://github.com/jeroenbourgois/vim-actionscript.git,$@)
 
 bundle/vim-jade.git: bundle
 	$(call gitco,git://github.com/digitaltoad/vim-jade.git,$@)
