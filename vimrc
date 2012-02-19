@@ -48,11 +48,6 @@ set foldlevel=1
 set foldnestmax=2
 set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
 
-" save/restore cursor position
-set viewoptions=cursor
-au BufWritePost,BufLeave,WinLeave ?* mkview
-au BufWinEnter ?* silent loadview
-
 " clipboard sharing in OSX (MacVim)
 set clipboard=unnamed
 
