@@ -77,6 +77,32 @@ if has("gui_running")
  	set fuoptions=maxvert,maxhorz
 endif
 
+" when we reload, tell vim to restore the cursor to the saved position
+augroup JumpCursorOnEdit
+ au!
+ autocmd BufReadPost *
+ \ if expand("<afile>:p:h") !=? $TEMP |
+ \ if line("'\"") > 1 && line("'\"") <= line("$") |
+ \ let JumpCursorOnEdit_foo = line("'\"") |
+ \ let b:doopenfold = 1 |
+ \ if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
+ \ let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
+ \ let b:doopenfold = 2 |
+ \ endif |
+ \ exe JumpCursorOnEdit_foo |
+ \ endif |
+ \ endif
+ " Need to postpone using "zv" until after reading the modelines.
+ autocmd BufWinEnter *
+ \ if exists("b:doopenfold") |
+ \ exe "normal zv" |
+ \ if(b:doopenfold > 1) |
+ \ exe "+".1 |
+ \ endif |
+ \ unlet b:doopenfold |
+ \ endif
+augroup end
+
 " FuzzyFinder
 let g:fuf_abbrevMap = {
 	\ "^a:" : [
@@ -94,8 +120,10 @@ nmap <leader>R :FufMruFile<CR>
 nmap <silent> <leader>t :CommandT<CR>
 let g:CommandTMaxHeight=25
 let g:CommandTMaxDepth=8
-let g:CommandTMaxFiles=1000
+let g:CommandTMaxFiles=2000
 
+" ignore in command-t
+set wildignore+=app/assets/images/**
 
 " Rails
 fun! RailsFuzzyLaunch(dir)
