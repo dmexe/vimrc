@@ -20,7 +20,9 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/git-vim.git \
 				bundle/syntastic.git \
 				bundle/vim-jade.git \
-				bundle/nerdtree.git
+				bundle/nerdtree.git \
+				bundle/vim-endwise.git \
+				bundle/vim-powerline.git
 
 EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
@@ -95,6 +97,12 @@ bundle/vim-jade.git: bundle
 
 bundle/nerdtree.git: bundle
 	$(call gitco,git://github.com/scrooloose/nerdtree.git,$@)
+
+bundle/vim-endwise.git: bundle
+	$(call gitco,git://github.com/tpope/vim-endwise.git,$@)
+
+bundle/vim-powerline.git: bundle
+	$(call gitco,git://github.com/Lokaltog/vim-powerline.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
