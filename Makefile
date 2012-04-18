@@ -115,6 +115,8 @@ clean:
 	done
 	@echo rm snippets
 	@rm -f snippets
+	@echo rmdir autoload
+	@rmdir autoload
 
 $(HOME)/.vimrc:
 	@echo link $@
