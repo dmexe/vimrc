@@ -17,12 +17,12 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/vim-ruby.git \
 				bundle/command-t.git \
 				bundle/vim-coffee-script.git \
-				bundle/git-vim.git \
 				bundle/syntastic.git \
 				bundle/vim-jade.git \
 				bundle/nerdtree.git \
 				bundle/vim-endwise.git \
-				bundle/vim-powerline.git
+				bundle/vim-powerline.git \
+				bundle/vim-fugitive.git
 
 EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
@@ -83,9 +83,6 @@ bundle/command-t.git: bundle
 bundle/vim-coffee-script.git: bundle
 	$(call gitco,git://github.com/kchmck/vim-coffee-script,$@)
 
-bundle/git-vim.git: bundle
-	$(call gitco,git://github.com/motemen/git-vim.git,$@)
-
 bundle/syntastic.git: bundle
 	$(call gitco,git://github.com/scrooloose/syntastic.git,$@)
 
@@ -103,6 +100,9 @@ bundle/vim-endwise.git: bundle
 
 bundle/vim-powerline.git: bundle
 	$(call gitco,git://github.com/Lokaltog/vim-powerline.git,$@)
+
+bundle/vim-fugitive.git: bundle
+	$(call gitco,git://github.com/tpope/vim-fugitive.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \

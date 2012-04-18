@@ -36,10 +36,11 @@ set autowriteall
 
 " first, enable status line always
 set laststatus=2
-set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
+" set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
 
 " power line
 let g:Powerline_symbols = 'compatible'
+call Pl#Theme#RemoveSegment('lineinfo')
 
 " syntastic
 let g:syntastic_enable_signs=1
