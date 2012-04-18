@@ -38,6 +38,9 @@ set autowriteall
 set laststatus=2
 set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
 
+" power line
+let g:Powerline_symbols = 'compatible'
+
 " syntastic
 let g:syntastic_enable_signs=1
 
@@ -67,6 +70,7 @@ if has("gui_running")
 	set guioptions-=T " disable toolbar
 	set guioptions-=h " disable hscroll
 	set guioptions-=v " disable vscroll
+	set guioptions-=r " disable right scrollbar
 
 	set visualbell
 
@@ -152,14 +156,14 @@ augroup end
 
 augroup MyRailsFt
   autocmd!
-  autocmd BufNewFile,BufRead */app/models/*.rb       if exists("b:rails_root") | set ft+=.rails_model      | endif
-  autocmd BufNewFile,BufRead */app/helpers/*.rb      if exists("b:rails_root") | set ft+=.rails_helper     | endif
-  autocmd BufNewFile,BufRead */app/controllers/*.rb  if exists("b:rails_root") | set ft+=.rails_controller | endif
-  autocmd BufNewFile,BufRead */spec/*.rb             if exists("b:rails_root") | set ft+=.rspec            | endif
-  autocmd BufNewFile,BufRead */spec/models/*.rb      if exists("b:rails_root") | set ft+=.rspec_model      | endif
-  autocmd BufNewFile,BufRead */spec/controllers/*.rb if exists("b:rails_root") | set ft+=.rspec_controller | endif
-  autocmd BufNewFile,BufRead */spec/helpers/*.rb     if exists("b:rails_root") | set ft+=.rspec_helper     | endif
-  autocmd BufNewFile,BufRead */db/migrate/*.rb       if exists("b:rails_root") | set ft+=.rails_migration  | endif
+  autocmd User Rails if expand("%:p") =~ "/app/models/"       | set ft+=.rails_model      | endif
+  autocmd User Rails if expand("%:p") =~ "/app/helpers/"      | set ft+=.rails_helper     | endif
+  autocmd User Rails if expand("%:p") =~ "/app/controllers/"  | set ft+=.rails_controller | endif
+  autocmd User Rails if expand("%:p") =~ "/spec/"             | set ft+=.rspec            | endif
+  autocmd User Rails if expand("%:p") =~ "/spec/models/"      | set ft+=.rspec_model      | endif
+  autocmd User Rails if expand("%:p") =~ "/spec/controllers/" | set ft+=.rspec_controller | endif
+  autocmd User Rails if expand("%:p") =~ "/spec/helpers/"     | set ft+=.rspec_helper     | endif
+  autocmd User Rails if expand("%:p") =~ "/db/migrate/"       | set ft+=.rails_migration  | endif
 augroup end
 
 " Ruby
@@ -214,3 +218,4 @@ let g:snippets_dir = "~/.vim/snipmate.snippets"
 " NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
+
