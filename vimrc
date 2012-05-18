@@ -34,6 +34,14 @@ set fileencoding=utf-8
 set autowrite
 set autowriteall
 
+" fix slow rendering
+set synmaxcol=200
+
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+set undodir=~/.vim/backups
+set undofile
+
 " first, enable status line always
 set laststatus=2
 " set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
@@ -219,4 +227,7 @@ let g:snippets_dir = "~/.vim/snipmate.snippets"
 " NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
+
+" git blame hitghtlited lines
+vmap <Leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 
