@@ -5,17 +5,12 @@ SHELL=`which bash`
 
 PATHOGEN=autoload/pathogen.vim
 
-BUNDLES=bundle/vim-railscasts-theme.git \
-				bundle/snipmate.vim.git \
+BUNDLES=bundle/snipmate.vim.git \
 				bundle/supertab.git \
 				bundle/delimitMate.git \
-				bundle/FuzzyFinder.git \
-				bundle/L9.git \
 				bundle/Simple-Javascript-Indenter.git \
-				bundle/javaScriptLint.vim.git \
 				bundle/vim-rails.git \
 				bundle/vim-ruby.git \
-				bundle/command-t.git \
 				bundle/vim-coffee-script.git \
 				bundle/syntastic.git \
 				bundle/vim-jade.git \
@@ -23,11 +18,9 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/vim-endwise.git \
 				bundle/vim-powerline.git \
 				bundle/vim-fugitive.git \
-				bundle/vim-conque.git \
 				bundle/vim-camelcasemotion.git \
-				bundle/vim-colors-solarized.git
-
-EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
+				bundle/vim-colors-solarized.git \
+				bundle/ctrlp.vim.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -36,7 +29,7 @@ gitco=@echo fetch $(2) \($(1)\);\
 			else $(GIT) clone -q $(1) $(2) > $(NULL) ;\
 			fi
 
-all: $(PATHOGEN) $(BUNDLES) $(EXTENSIONS) $(HOME)/.vimrc
+all: $(PATHOGEN) $(BUNDLES) $(HOME)/.vimrc
 
 bundle autoload:
 	mkdir -p $@
@@ -45,9 +38,6 @@ bundles: $(BUNDLES)
 
 $(PATHOGEN): autoload
 	$(call download,https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim,$@)
-
-bundle/vim-railscasts-theme.git: bundle
-	$(call gitco,git://github.com/jpo/vim-railscasts-theme.git,$@)
 
 bundle/snipmate.vim.git: bundle
 	$(call gitco,git://github.com/msanders/snipmate.vim.git,$@)
@@ -58,30 +48,14 @@ bundle/supertab.git: bundle
 bundle/delimitMate.git: bundle
 	$(call gitco,git://github.com/Raimondi/delimitMate.git,$@)
 
-bundle/FuzzyFinder.git: bundle
-	$(call gitco,git://github.com/vim-scripts/FuzzyFinder.git,$@)
-
-bundle/L9.git: bundle
-	$(call gitco,git://github.com/vim-scripts/L9.git,$@)
-
 bundle/Simple-Javascript-Indenter.git: bundle
 	$(call gitco,git://github.com/vim-scripts/Simple-Javascript-Indenter.git,$@)
-
-bundle/javaScriptLint.vim.git: bundle
-	$(call gitco,git://github.com/vim-scripts/javaScriptLint.vim.git,$@)
 
 bundle/vim-rails.git: bundle
 	$(call gitco,git://github.com/tpope/vim-rails.git,$@)
 
 bundle/vim-ruby.git: bundle
 	$(call gitco,git://github.com/vim-ruby/vim-ruby.git,$@)
-
-bundle/command-t.git/ruby/command-t/ext.bundle: bundle/command-t.git bundle/command-t.git/ruby/command-t/ext.c
-	@echo build $@ extension
-	@(cd bundle/command-t.git && rake make -q)
-
-bundle/command-t.git: bundle
-	$(call gitco,git://git.wincent.com/command-t.git,$@)
 
 bundle/vim-coffee-script.git: bundle
 	$(call gitco,git://github.com/kchmck/vim-coffee-script,$@)
@@ -107,14 +81,15 @@ bundle/vim-powerline.git: bundle
 bundle/vim-fugitive.git: bundle
 	$(call gitco,git://github.com/tpope/vim-fugitive.git,$@)
 
-bundle/vim-conque.git: bundle
-	$(call gitco,git://github.com/rygwdn/vim-conque.git,$@)
-
 bundle/vim-camelcasemotion.git: bundle
 	$(call gitco,git://github.com/ujihisa/camelcasemotion.git,$@)
 
 bundle/vim-colors-solarized.git: bundle
 	$(call gitco,git://github.com/altercation/vim-colors-solarized.git,$@)
+git://github.com/kien/ctrlp.vim.git
+
+bundle/ctrlp.vim.git: bundle
+	$(call gitco,git://github.com/kien/ctrlp.vim.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
@@ -133,6 +108,4 @@ clean:
 $(HOME)/.vimrc:
 	@echo link $@
 	@ln -sf `pwd`/vimrc $(HOME)/.vimrc
-
-
 

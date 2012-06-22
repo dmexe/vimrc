@@ -23,8 +23,10 @@ filetype on
 filetype indent on
 filetype plugin on
 
-colorscheme railscasts
-hi Normal guibg=#1B2426
+set background=dark
+colorscheme solarized
+"colorscheme railscasts
+"hi Normal guibg=#1B2426
 
 set encoding=utf-8
 
@@ -117,31 +119,17 @@ augroup JumpCursorOnEdit
  \ endif
 augroup end
 
-" FuzzyFinder
-let g:fuf_abbrevMap = {
-	\ "^a:" : [
-	\   "~/apps/",
-	\ ],
-	\}
+" CtrlP
+nmap <silent> &T :CtrlP<CR>
+nmap <silent> &B :CtrlPBuffer<CR>
+nmap <silent> &R :CtrlPMRU<CR>
 
-let g:fuf_modesDisable = ["mrucmd"]
-
-nmap <leader>e :FufFile<CR>
-nmap <leader>b :FufBuffer<CR>
-nmap <leader>R :FufMruFile<CR>
-
-" command-t
-nmap <silent> <leader>t :CommandT<CR>
-let g:CommandTMaxHeight=25
-let g:CommandTMaxDepth=8
-let g:CommandTMaxFiles=2000
-
-" ignore in command-t
+" ignore in finders
 set wildignore+=app/assets/images/**
 
 " Rails
 fun! RailsFuzzyLaunch(dir)
-  execute ":CommandT " . RailsRoot() . a:dir
+  execute ":CtrlP " . RailsRoot() . a:dir
 endf
 
 " actionscript
@@ -161,7 +149,6 @@ augroup MyRails
   autocmd User Rails nnoremap <space>r :call RailsFuzzyLaunch("/")<CR>
   autocmd User Rails nnoremap <space>g :call RailsFuzzyLaunch("/db/migrate")<CR>
   autocmd User Rails nnoremap <space>j :call RailsFuzzyLaunch("/app/assets/javascripts")<CR>
-  autocmd User Rails map <D-r> :Rake<CR>
 augroup end
 
 augroup MyRailsFt
@@ -228,21 +215,8 @@ let g:snippets_dir = "~/.vim/snipmate.snippets"
 " NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
+nmap <silent> <F2> :NERDTreeToggle<CR>
 
 " git blame hitghtlited lines
-vmap <Leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
-
-" spin
-function! PushToSpin(args)
-  let cmd = ":! (cd " . b:rails_root . " && spin push %:p)" . a:args
-  execute cmd
-endfunction
-
-function! SendTest()
-  execute ":cd " . b:rails_root
-  let cmd = "sh -c 'spin push spec/models/user_spec.rb'"
-  call RunSingleConque(cmd)
-endfunction
-
-map <Leader>s :call SendTest()<CR>
+vmap &g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 
