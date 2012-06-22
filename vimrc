@@ -47,11 +47,12 @@ set laststatus=2
 " set statusline=%<%f\ %y\ %{GitBranch()}\ %h%m%r%=%l,%c%V\ %P
 
 " power line
-let g:Powerline_symbols = 'compatible'
+"let g:Powerline_symbols = 'compatible'
 call Pl#Theme#RemoveSegment('lineinfo')
 
 " syntastic
 let g:syntastic_enable_signs=1
+
 
 " fold
 set nofoldenable
@@ -74,9 +75,9 @@ set sidescroll=1
 if has("gui_running")
 	" GUI is running or is about to start.
 	" Maximize gvim window.
-	set guifont=Monaco:h13
+  set guifont=Monaco:h13
 
-	set guioptions-=T " disable toolbar
+set guioptions-=T " disable toolbar
 	set guioptions-=h " disable hscroll
 	set guioptions-=v " disable vscroll
 	set guioptions-=r " disable right scrollbar
@@ -230,4 +231,18 @@ let g:NERDTreeMinimalUI=1
 
 " git blame hitghtlited lines
 vmap <Leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
+
+" spin
+function! PushToSpin(args)
+  let cmd = ":! (cd " . b:rails_root . " && spin push %:p)" . a:args
+  execute cmd
+endfunction
+
+function! SendTest()
+  execute ":cd " . b:rails_root
+  let cmd = "sh -c 'spin push spec/models/user_spec.rb'"
+  call RunSingleConque(cmd)
+endfunction
+
+map <Leader>s :call SendTest()<CR>
 

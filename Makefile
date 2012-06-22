@@ -22,7 +22,9 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/nerdtree.git \
 				bundle/vim-endwise.git \
 				bundle/vim-powerline.git \
-				bundle/vim-fugitive.git
+				bundle/vim-fugitive.git \
+				bundle/vim-conque.git \
+				bundle/vim-camelcasemotion.git
 
 EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
@@ -103,6 +105,12 @@ bundle/vim-powerline.git: bundle
 
 bundle/vim-fugitive.git: bundle
 	$(call gitco,git://github.com/tpope/vim-fugitive.git,$@)
+
+bundle/vim-conque.git: bundle
+	$(call gitco,git://github.com/rygwdn/vim-conque.git,$@)
+
+bundle/vim-camelcasemotion.git: bundle
+	$(call gitco,git://github.com/ujihisa/camelcasemotion.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
