@@ -24,7 +24,8 @@ BUNDLES=bundle/vim-railscasts-theme.git \
 				bundle/vim-powerline.git \
 				bundle/vim-fugitive.git \
 				bundle/vim-conque.git \
-				bundle/vim-camelcasemotion.git
+				bundle/vim-camelcasemotion.git \
+				bundle/vim-colors-solarized.git
 
 EXTENSIONS=bundle/command-t.git/ruby/command-t/ext.bundle
 
@@ -67,7 +68,7 @@ bundle/Simple-Javascript-Indenter.git: bundle
 	$(call gitco,git://github.com/vim-scripts/Simple-Javascript-Indenter.git,$@)
 
 bundle/javaScriptLint.vim.git: bundle
-	$(call gitco,git://github.com/joestelmach/javaScriptLint.vim.git,$@)
+	$(call gitco,git://github.com/vim-scripts/javaScriptLint.vim.git,$@)
 
 bundle/vim-rails.git: bundle
 	$(call gitco,git://github.com/tpope/vim-rails.git,$@)
@@ -111,6 +112,9 @@ bundle/vim-conque.git: bundle
 
 bundle/vim-camelcasemotion.git: bundle
 	$(call gitco,git://github.com/ujihisa/camelcasemotion.git,$@)
+
+bundle/vim-colors-solarized.git: bundle
+	$(call gitco,git://github.com/altercation/vim-colors-solarized.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
