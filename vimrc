@@ -55,7 +55,6 @@ call Pl#Theme#RemoveSegment('lineinfo')
 " syntastic
 let g:syntastic_enable_signs=1
 
-
 " fold
 set nofoldenable
 set foldmethod=syntax
@@ -118,11 +117,6 @@ augroup JumpCursorOnEdit
  \ unlet b:doopenfold |
  \ endif
 augroup end
-
-" CtrlP
-nmap <silent> &T :CtrlP<CR>
-nmap <silent> &B :CtrlPBuffer<CR>
-nmap <silent> &R :CtrlPMRU<CR>
 
 " ignore in finders
 set wildignore+=app/assets/images/**
@@ -215,8 +209,22 @@ let g:snippets_dir = "~/.vim/snipmate.snippets"
 " NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
-nmap <silent> <F2> :NERDTreeToggle<CR>
+
+imap <C-h> <ESC>^
+imap <C-l> <ESC>$
+
+" CtrlP
+let mapleader = ","
+let g:mapleader = ","
+
+nnoremap <leader>t :CtrlP<CR>
+nnoremap <leader>r :CtrlPMRU<CR>
+nmap <silent> <leader>m :CtrlPBuffer<CR>
 
 " git blame hitghtlited lines
-vmap &g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
+vmap <leader>g :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 
+nmap <silent> <leader>p :NERDTreeToggle<CR>
+
+" Switch between last two buffers
+nnoremap <leader><leader> <c-^>
