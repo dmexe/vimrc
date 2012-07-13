@@ -37,7 +37,9 @@ set autowrite
 set autowriteall
 
 " fix slow rendering
-set synmaxcol=200
+set synmaxcol=128
+set nocursorcolumn
+set nocursorline
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
