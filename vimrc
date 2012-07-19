@@ -40,6 +40,7 @@ set autowriteall
 set synmaxcol=128
 set nocursorcolumn
 set nocursorline
+set lazyredraw
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
@@ -66,6 +67,10 @@ set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:f
 
 " clipboard sharing in OSX (MacVim)
 set clipboard=unnamed
+
+" grep
+set grepprg=ack
+set grepformat=%f:%l:%m
 
 " completions
 set wildmode=list:longest,list:full
