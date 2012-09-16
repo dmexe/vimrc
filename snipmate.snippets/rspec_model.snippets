@@ -21,24 +21,3 @@ snippet vu
 		new_$1.should_not be_valid
 		new_$1.should have(1).error_on(:$2)
 	end
-snippet desas
-	describe '(associations)' do
-		before(:each) do
-			should be_valid
-		end
-		${1}
-	end
-snippet hm
-	it "should have many ${1:users}" do
-		subject.save!
-		${2:user} = Factory(:$2, :${3:company} => subject)
-		subject.$1.should == [$2]
-		subject.destroy
-		expect{ $2.reload }.to raise_error{ ActiveRecord::RecordInvalid }
-	end${4}
-snippet bt
-	it "should have association ${1:user}" do
-		$1 = Factory(:$1)
-		subject.update_attributes!(:$1 => $1)
-		subject.$1.should == $1
-	end${2}

@@ -1,5 +1,9 @@
-snippet des
+snippet de
 	describe "${1:description}" do
+		${2}
+	end
+snippet co
+	context "${1:context}" do
 		${2}
 	end
 snippet it
@@ -14,15 +18,22 @@ snippet sh
 	should ${1}
 snippet shn
 	should_not ${1}
-snippet F
-	Factory(:${1})${2}
-snippet Fb
-	Factory.build(:${1})${2}
+snippet f
+	FactoryGirl.create(:${1::user})${2}
+snippet fb
+	FactoryGirl.build(:${1::user})${2}
 snippet st
-	stub(${1})${2}
+	stub(${1:user})${2}
 snippet mo
-	mock(${1})${2}
-snippet let
-	let(:${1}) { ${2} }
-snippet sub
+	mock(${1:user})${2}
+snippet le
+	let(:${1::user}) { ${2} }
+snippet su
 	subject { ${1} }
+snippet ex
+	expect(${1:user}).to ${2}
+snippet exn
+	expect(${1:user}).to_not ${2}
+snippet =
+	eq(${1:user})${2}
+
