@@ -20,7 +20,8 @@ BUNDLES=bundle/snipmate.vim.git \
 				bundle/vim-fugitive.git \
 				bundle/vim-camelcasemotion.git \
 				bundle/vim-colors-solarized.git \
-				bundle/ctrlp.vim.git
+				bundle/ctrlp.vim.git \
+				bundle/vim-scala.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -90,6 +91,9 @@ git://github.com/kien/ctrlp.vim.git
 
 bundle/ctrlp.vim.git: bundle
 	$(call gitco,git://github.com/kien/ctrlp.vim.git,$@)
+
+bundle/vim-scala.git: bundle
+	$(call gitco,git://github.com/derekwyatt/vim-scala.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \

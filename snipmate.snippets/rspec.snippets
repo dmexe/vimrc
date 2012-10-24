@@ -10,6 +10,8 @@ snippet it
 	it "should ${1}" do
 		${2}
 	end
+snippet its
+	its(:${1}){ should ${2} }
 snippet be
 	before(:each) do
 		${1}
@@ -18,7 +20,7 @@ snippet sh
 	should ${1}
 snippet shn
 	should_not ${1}
-snippet f
+snippet fc
 	FactoryGirl.create(:${1:user})${2}
 snippet fb
 	FactoryGirl.build(:${1:user})${2}
@@ -31,9 +33,9 @@ snippet le
 snippet su
 	subject { ${1} }
 snippet ex
-	expect(${1:user}).to ${2}
+	expect{${1:user}}.to ${2}
 snippet exn
-	expect(${1:user}).to_not ${2}
+	expect{${1:user}}.to_not ${2}
 snippet =
 	eq(${1:user})${2}
 
