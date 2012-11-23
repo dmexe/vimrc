@@ -1,3 +1,4 @@
+runtime autoload/pathogen.vim
 call pathogen#infect()
 
 set nocompatible
