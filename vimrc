@@ -38,13 +38,24 @@ set autowrite
 set autowriteall
 
 " fix slow rendering
-set synmaxcol=128
-set nocursorcolumn
-set nocursorline
-set lazyredraw
+"set synmaxcol=128
+"set nocursorcolumn
+"set nocursorline
+"set lazyredraw
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
+
+" Turn Off Swap Files
+set noswapfile
+set nobackup
+set nowb
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
 set undodir=~/.vim/backups
 set undofile
 
@@ -80,6 +91,9 @@ set complete=.,w,t
 set scrolloff=5
 set sidescrolloff=7
 set sidescroll=1
+
+" save on focus lost
+au FocusLost * :wa
 
 if has("gui_running")
 	" GUI is running or is about to start.
@@ -236,3 +250,5 @@ nmap <silent> <leader>p :NERDTreeToggle<CR>
 
 " Switch between last two buffers
 nnoremap <leader><leader> <c-^>
+
+let $PATH = "/Users/dima/.rbenv/shims:" . $PATH
