@@ -16,7 +16,7 @@ set ignorecase
 
 set nobackup
 if exists("+autochdir")
-	set autochdir
+  set autochdir
 endif
 
 syntax on
@@ -25,9 +25,11 @@ filetype indent on
 filetype plugin on
 
 set background=dark
-colorscheme solarized
 "colorscheme railscasts
 "hi Normal guibg=#1B2426
+if has("gui_running")
+  colorscheme solarized
+endif
 
 set encoding=utf-8
 
@@ -37,11 +39,11 @@ set fileencoding=utf-8
 set autowrite
 set autowriteall
 
-" fix slow rendering
-"set synmaxcol=128
-"set nocursorcolumn
-"set nocursorline
-"set lazyredraw
+  "" fix slow rendering
+  ""set synmaxcol=128
+  ""set nocursorcolumn
+  ""set nocursorline
+  ""set lazyredraw
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -70,13 +72,6 @@ call Pl#Theme#RemoveSegment('lineinfo')
 " syntastic
 let g:syntastic_enable_signs=1
 
-" fold
-set nofoldenable
-set foldmethod=syntax
-set foldlevel=1
-set foldnestmax=2
-set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\ '.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
-
 " clipboard sharing in OSX (MacVim)
 set clipboard=unnamed
 
@@ -86,7 +81,8 @@ set grepformat=%f:%l:%m
 
 " completions
 set wildmode=list:longest,list:full
-set complete=.,w,t
+set complete=.,t
+let g:SuperTabDefaultCompletionType = "context"
 
 set scrolloff=5
 set sidescrolloff=7
@@ -96,48 +92,48 @@ set sidescroll=1
 au FocusLost * :wa
 
 if has("gui_running")
-	" GUI is running or is about to start.
-	" Maximize gvim window.
+  " GUI is running or is about to start.
+  " Maximize gvim window.
   set guifont=Monaco:h13
 
-set guioptions-=T " disable toolbar
-	set guioptions-=h " disable hscroll
-	set guioptions-=v " disable vscroll
-	set guioptions-=r " disable right scrollbar
+  set guioptions-=T " disable toolbar
+  set guioptions-=h " disable hscroll
+  set guioptions-=v " disable vscroll
+  set guioptions-=r " disable right scrollbar
 
-	set visualbell
+  set visualbell
 
-	set colorcolumn=80
-	hi ColorColumn guibg=#444444 ctermbg=246
+  set colorcolumn=80
+  hi ColorColumn guibg=#444444 ctermbg=246
 
-	" fullscreen options
- 	set fuoptions=maxvert,maxhorz
+  " fullscreen options
+  set fuoptions=maxvert,maxhorz
 endif
 
 " when we reload, tell vim to restore the cursor to the saved position
 augroup JumpCursorOnEdit
- au!
- autocmd BufReadPost *
- \ if expand("<afile>:p:h") !=? $TEMP |
- \ if line("'\"") > 1 && line("'\"") <= line("$") |
- \ let JumpCursorOnEdit_foo = line("'\"") |
- \ let b:doopenfold = 1 |
- \ if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
- \ let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
- \ let b:doopenfold = 2 |
- \ endif |
- \ exe JumpCursorOnEdit_foo |
- \ endif |
- \ endif
- " Need to postpone using "zv" until after reading the modelines.
- autocmd BufWinEnter *
- \ if exists("b:doopenfold") |
- \ exe "normal zv" |
- \ if(b:doopenfold > 1) |
- \ exe "+".1 |
- \ endif |
- \ unlet b:doopenfold |
- \ endif
+  autocmd!
+  autocmd BufReadPost *
+        \ if expand("<afile>:p:h") !=? $TEMP |
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \ let JumpCursorOnEdit_foo = line("'\"") |
+        \ let b:doopenfold = 1 |
+        \ if (foldlevel(JumpCursorOnEdit_foo) > foldlevel(JumpCursorOnEdit_foo - 1)) |
+        \ let JumpCursorOnEdit_foo = JumpCursorOnEdit_foo - 1 |
+        \ let b:doopenfold = 2 |
+        \ endif |
+        \ exe JumpCursorOnEdit_foo |
+        \ endif |
+        \ endif
+  " Need to postpone using "zv" until after reading the modelines.
+  autocmd BufWinEnter *
+        \ if exists("b:doopenfold") |
+        \ exe "normal zv" |
+        \ if(b:doopenfold > 1) |
+        \ exe "+".1 |
+        \ endif |
+        \ unlet b:doopenfold |
+        \ endif
 augroup end
 
 " ignore in finders
@@ -196,23 +192,15 @@ augroup MyRuby
         \ else |
         \   compiler ruby | setl makeprg=ruby\ -w\ \"%:p\" |
         \ endif
-augroup end
+  augroup end
 
 " Whitespaces
 function! StripTrailingWhitespace()
   if !&binary && &filetype != 'diff'
-  	%s/\s\+$//e
+    %s/\s\+$//e
   endif
 endfunction
-
-function! StatuslineCurrentHighlight()
-	name = synIDattr(synID(line('.'),col('.'),1),'name')
-	if name == ''
-		return ''
-	else
-		return '[' . name . ']'
-	endif
-endfunction
+autocmd BufWritePre * :call StripTrailingWhitespace()
 
 " remap enter/shift-enter to insert blank lines
 map <S-Enter> O<Esc>
@@ -221,8 +209,6 @@ map <CR> o<Esc>
 " remap tab to indent block
 map <TAB> V=<Esc>^
 "imap <TAB> <Esc>V=<Esc>^
-
-autocmd BufWritePre * :call StripTrailingWhitespace()
 
 " snipMate
 let g:snippets_dir = "~/.vim/snipmate.snippets"
@@ -252,3 +238,4 @@ nmap <silent> <leader>p :NERDTreeToggle<CR>
 nnoremap <leader><leader> <c-^>
 
 let $PATH = "/Users/dima/.rbenv/shims:" . $PATH
+

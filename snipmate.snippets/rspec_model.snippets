@@ -2,6 +2,7 @@ snippet shcre
 	it "should create given the valid attributes" do
 		${1:User}.create!(${2:user}.attributes)
 	end${3}
+
 snippet desva
 	describe '(validations)' do
 		before(:each) do
@@ -9,11 +10,13 @@ snippet desva
 		end
 		${1}
 	end
+
 snippet vp
 	it "should be" do
 		subject.${1:name} = ""
 		should have(1).error_on(:$1)
 	end${2}
+
 snippet vu
 	it "should be unique" do
 		subject.save!
