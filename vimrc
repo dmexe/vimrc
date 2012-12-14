@@ -100,6 +100,7 @@ if has("gui_running")
   set guioptions-=h " disable hscroll
   set guioptions-=v " disable vscroll
   set guioptions-=r " disable right scrollbar
+  set guioptions-=L " disable left scrollbar
 
   set visualbell
 
