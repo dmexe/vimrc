@@ -179,21 +179,9 @@ augroup end
 " Ruby
 augroup MyRubyFt
   autocmd!
-  autocmd BufNewFile,BufRead *.rake set ft+=.rake
+  autocmd BufNewFile,BufRead *.rake    set ft+=.rake
+  autocmd BufNewFile,BufRead *_spec.rb set ft+=.rspec
 augroup end
-
-augroup MyRuby
-  autocmd!
-  autocmd FileType cucumber compiler cucumber | setl makeprg=cucumber\ \"%:p\"
-  autocmd FileType ruby
-        \ if expand('%') =~# '_test\.rb$' |
-        \   compiler rubyunit | setl makeprg=testrb\ \"%:p\" |
-        \ elseif expand('%') =~# '_spec\.rb$' |
-        \   compiler rspec | setl makeprg=rspec\ \"%:p\" |
-        \ else |
-        \   compiler ruby | setl makeprg=ruby\ -w\ \"%:p\" |
-        \ endif
-  augroup end
 
 " Whitespaces
 function! StripTrailingWhitespace()
@@ -237,6 +225,3 @@ nmap <silent> <leader>p :NERDTreeToggle<CR>
 
 " Switch between last two buffers
 nnoremap <leader><leader> <c-^>
-
-let $PATH = "/Users/dima/.rbenv/shims:" . $PATH
-

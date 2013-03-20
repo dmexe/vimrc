@@ -21,10 +21,11 @@ BUNDLES=bundle/snipmate.vim.git \
 				bundle/vim-camelcasemotion.git \
 				bundle/vim-colors-solarized.git \
 				bundle/ctrlp.vim.git \
-				bundle/vim-puppet.git \
+				bundle/mv-vim-puppet.git \
 				bundle/nerdcommenter.git \
 				bundle/ack.vim.git \
-				bundle/vim-surround.git
+				bundle/vim-surround.git \
+				bundle/tabular.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -94,8 +95,8 @@ bundle/vim-colors-solarized.git: bundle
 bundle/ctrlp.vim.git: bundle
 	$(call gitco,git://github.com/kien/ctrlp.vim.git,$@)
 
-bundle/vim-puppet.git: bundle
-	$(call gitco,git@github.com:rodjek/vim-puppet.git,$@)
+bundle/mv-vim-puppet.git: bundle
+	$(call gitco,git://github.com/mv/mv-vim-puppet.git,$@)
 
 bundle/nerdcommenter.git: bundle
 	$(call gitco,git@github.com:scrooloose/nerdcommenter.git,$@)
@@ -105,6 +106,9 @@ bundle/ack.vim.git: bundle
 
 bundle/vim-surround.git: bundle
 	$(call gitco,git@github.com:tpope/vim-surround.git,$@)
+
+bundle/tabular.git: bundle
+	$(call gitco,git://github.com/godlygeek/tabular.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
