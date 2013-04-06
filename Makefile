@@ -127,3 +127,5 @@ clean:
 $(HOME)/.vimrc:
 	@echo link $@
 	@ln -sf `pwd`/vimrc $(HOME)/.vimrc
+
+
