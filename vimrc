@@ -81,6 +81,7 @@ set grepformat=%f:%l:%m
 
 " completions
 set wildmode=list:longest,list:full
+set wildmenu
 set complete=.,t
 let g:SuperTabDefaultCompletionType = "context"
 
