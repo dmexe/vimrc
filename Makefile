@@ -5,7 +5,7 @@ SHELL=`which bash`
 
 PATHOGEN=autoload/pathogen.vim
 
-BUNDLES=bundle/snipmate.vim.git \
+BUNDLES=bundle/vim-snipmate.git \
 				bundle/supertab.git \
 				bundle/delimitMate.git \
 				bundle/Simple-Javascript-Indenter.git \
@@ -44,8 +44,8 @@ bundles: $(BUNDLES)
 $(PATHOGEN): autoload
 	$(call download,https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim,$@)
 
-bundle/snipmate.vim.git: bundle
-	$(call gitco,git://github.com/msanders/snipmate.vim.git,$@)
+bundle/vim-snipmate.git: bundle
+	$(call gitco,git://github.com/garbas/vim-snipmate.git,$@)
 
 bundle/supertab.git: bundle
 	$(call gitco,git://github.com/ervandew/supertab.git,$@)
@@ -67,9 +67,6 @@ bundle/vim-coffee-script.git: bundle
 
 bundle/syntastic.git: bundle
 	$(call gitco,git://github.com/scrooloose/syntastic.git,$@)
-
-bundle/UltiSnips.git: bundle
-	$(call gitco,git://github.com/vim-scripts/UltiSnips.git,$@)
 
 bundle/vim-jade.git: bundle
 	$(call gitco,git://github.com/digitaltoad/vim-jade.git,$@)
