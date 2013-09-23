@@ -5,7 +5,7 @@ SHELL=`which bash`
 
 PATHOGEN=autoload/pathogen.vim
 
-BUNDLES=bundle/snipmate.vim.git \
+BUNDLES=bundle/vim-snipmate.git \
 				bundle/supertab.git \
 				bundle/delimitMate.git \
 				bundle/Simple-Javascript-Indenter.git \
@@ -25,7 +25,8 @@ BUNDLES=bundle/snipmate.vim.git \
 				bundle/nerdcommenter.git \
 				bundle/ack.vim.git \
 				bundle/vim-surround.git \
-				bundle/tabular.git
+				bundle/tabular.git \
+				bundle/vim-golang.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -44,8 +45,8 @@ bundles: $(BUNDLES)
 $(PATHOGEN): autoload
 	$(call download,https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim,$@)
 
-bundle/snipmate.vim.git: bundle
-	$(call gitco,git://github.com/msanders/snipmate.vim.git,$@)
+bundle/vim-snipmate.git: bundle
+	$(call gitco,git://github.com/garbas/vim-snipmate.git,$@)
 
 bundle/supertab.git: bundle
 	$(call gitco,git://github.com/ervandew/supertab.git,$@)
@@ -67,9 +68,6 @@ bundle/vim-coffee-script.git: bundle
 
 bundle/syntastic.git: bundle
 	$(call gitco,git://github.com/scrooloose/syntastic.git,$@)
-
-bundle/UltiSnips.git: bundle
-	$(call gitco,git://github.com/vim-scripts/UltiSnips.git,$@)
 
 bundle/vim-jade.git: bundle
 	$(call gitco,git://github.com/digitaltoad/vim-jade.git,$@)
@@ -110,6 +108,9 @@ bundle/vim-surround.git: bundle
 bundle/tabular.git: bundle
 	$(call gitco,git://github.com/godlygeek/tabular.git,$@)
 
+bundle/vim-golang.git: bundle
+	$(call gitco,git://github.com/jnwhiteh/vim-golang.git,$@)
+
 clean:
 	@for i in $(PATHOGEN) ; do \
 	echo rm $$i ; \
@@ -127,3 +128,5 @@ clean:
 $(HOME)/.vimrc:
 	@echo link $@
 	@ln -sf `pwd`/vimrc $(HOME)/.vimrc
+
+

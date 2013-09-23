@@ -81,8 +81,11 @@ set grepformat=%f:%l:%m
 
 " completions
 set wildmode=list:longest,list:full
+set wildmenu
 set complete=.,t
+
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabNoCompleteAfter = [',', '\s', ';', '/', '^']
 
 set scrolloff=5
 set sidescrolloff=7
@@ -201,7 +204,7 @@ map <TAB> V=<Esc>^
 
 " snipMate
 let g:snippets_dir = "~/.vim/snipmate.snippets"
-"call ReloadAllSnippets()
+" call ReloadAllSnippets()
 
 " NERDTree
 let g:NERDTreeDirArrows=1
