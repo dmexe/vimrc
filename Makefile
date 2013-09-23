@@ -25,7 +25,8 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/nerdcommenter.git \
 				bundle/ack.vim.git \
 				bundle/vim-surround.git \
-				bundle/tabular.git
+				bundle/tabular.git \
+				bundle/vim-golang.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -106,6 +107,9 @@ bundle/vim-surround.git: bundle
 
 bundle/tabular.git: bundle
 	$(call gitco,git://github.com/godlygeek/tabular.git,$@)
+
+bundle/vim-golang.git: bundle
+	$(call gitco,git://github.com/jnwhiteh/vim-golang.git,$@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
