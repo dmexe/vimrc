@@ -26,7 +26,10 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/ack.vim.git \
 				bundle/vim-surround.git \
 				bundle/tabular.git \
-				bundle/vim-golang.git
+				bundle/vim-golang.git \
+				bundle/tlib_vim.git \
+				bundle/vim-addon-mw-utils.git \
+				bundle/vim-protobuf.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -45,7 +48,13 @@ bundles: $(BUNDLES)
 $(PATHOGEN): autoload
 	$(call download,https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim,$@)
 
-bundle/vim-snipmate.git: bundle
+bundle/tlib_vim.git: bundle
+	$(call gitco,https://github.com/tomtom/tlib_vim.git,$@)
+
+bundle/vim-addon-mw-utils.git: bundle
+	$(call gitco,https://github.com/MarcWeber/vim-addon-mw-utils.git,$@)
+
+bundle/vim-snipmate.git: bundle/tlib_vim.git bundle/vim-addon-mw-utils.git
 	$(call gitco,git://github.com/garbas/vim-snipmate.git,$@)
 
 bundle/supertab.git: bundle
@@ -110,6 +119,9 @@ bundle/tabular.git: bundle
 
 bundle/vim-golang.git: bundle
 	$(call gitco,git://github.com/jnwhiteh/vim-golang.git,$@)
+
+bundle/vim-protobuf.git: bundle
+	$(call gitco,https://github.com/uarun/vim-protobuf.git, $@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
