@@ -143,13 +143,20 @@ augroup end
 " ignore in finders
 set wildignore+=app/assets/images/**
 
+" actionscript
+au BufNewFile,BufRead *.as	setf actionscript
+
+" go
+augroup MyGo
+  autocmd!
+  autocmd FileType go if expand("%") =~ "_test.go" | set ft+=.go_test | endif
+augroup end
+
+
 " Rails
 fun! RailsFuzzyLaunch(dir)
   execute ":CtrlP " . RailsRoot() . a:dir
 endf
-
-" actionscript
-au BufNewFile,BufRead *.as	setf actionscript
 
 augroup MyRails
   autocmd!
