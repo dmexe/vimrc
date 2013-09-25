@@ -1,0 +1,40 @@
+snippet de
+	describe "${1:description}" do
+		${2}
+	end
+snippet co
+	context "${1:context}" do
+		${2}
+	end
+snippet it
+	it "should ${1}" do
+		${2}
+	end
+snippet itl
+	it { should ${1} }${2}
+snippet its
+	its(:${1}){ should ${2} }
+snippet be
+	before { ${1} }
+snippet beb
+	before do
+		${1}
+	end
+snippet fc
+	FactoryGirl.create(:${1:user})${2}
+snippet fb
+	FactoryGirl.build(:${1:user})${2}
+snippet st
+	stub(${1:user})${2}
+snippet mo
+	mock(${1:user})${2}
+snippet le
+	let(:${1::user}) { ${2} }
+snippet su
+	subject { ${1} }
+snippet ex
+	expect(${1:user}).to ${2}
+snippet exn
+	expect(${1:user}).to_not ${2}
+snippet =
+	eq ${1}

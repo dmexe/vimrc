@@ -1,0 +1,14 @@
+snippet bf
+	before_filter :${1:filter}
+snippet af
+	after_filter :${1:filter}
+snippet inm
+	def init_${1:post}
+		@$1 = ${2:Post}.find(params[:id]) if params[:id]
+		@$1 ||= $2.new
+	end
+snippet rest
+	respond_to do |want|
+		want.html
+		want.json { render :json => @${1:posts} }
+	end

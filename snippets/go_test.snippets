@@ -1,0 +1,22 @@
+snippet im
+	import (
+	  "testing"
+	  "github.com/stretchr/testify/assert"
+	  ${1}
+	)
+snippet te
+	func Test${1:Name} (t *testing.T) {
+	  ${2}
+	}
+snippet ae
+	assert.Equal(t, ${1:val}, ${2:val})
+snippet ane
+	assert.NoEqual(t, ${1:val}, ${2:val})
+snippet aer
+	assert.Error(t, ${1:err})
+snippet aner
+	assert.NoError(t, ${1:err})
+snippet aco
+	assert.Contains(t, ${1:str}, "${2:contains}")
+snippet ann
+	assert.NotNil(t, ${1:err})

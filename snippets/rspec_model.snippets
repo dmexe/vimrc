@@ -1,0 +1,26 @@
+snippet shcre
+	it "should create given the valid attributes" do
+		${1:User}.create!(${2:user}.attributes)
+	end${3}
+
+snippet desva
+	describe '(validations)' do
+		before(:each) do
+			should be_valid
+		end
+		${1}
+	end
+
+snippet vp
+	it "should be" do
+		subject.${1:name} = ""
+		should have(1).error_on(:$1)
+	end${2}
+
+snippet vu
+	it "should be unique" do
+		subject.save!
+		new_${1:post} = Factory.build(:$1, :${2:user_id} => subject.$2)
+		new_$1.should_not be_valid
+		new_$1.should have(1).error_on(:$2)
+	end
