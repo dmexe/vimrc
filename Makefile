@@ -29,7 +29,8 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/vim-golang.git \
 				bundle/tlib_vim.git \
 				bundle/vim-addon-mw-utils.git \
-				bundle/vim-protobuf.git
+				bundle/vim-protobuf.git \
+				bundle/dockerfile.vim.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -122,6 +123,9 @@ bundle/vim-golang.git: bundle
 
 bundle/vim-protobuf.git: bundle
 	$(call gitco,https://github.com/uarun/vim-protobuf.git, $@)
+
+bundle/dockerfile.vim.git: bundle
+	$(call gitco,https://github.com/honza/dockerfile.vim.git, $@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
