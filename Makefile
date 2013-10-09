@@ -16,7 +16,6 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/vim-jade.git \
 				bundle/nerdtree.git \
 				bundle/vim-endwise.git \
-				bundle/vim-powerline.git \
 				bundle/vim-fugitive.git \
 				bundle/vim-camelcasemotion.git \
 				bundle/vim-colors-solarized.git \
@@ -30,7 +29,8 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/tlib_vim.git \
 				bundle/vim-addon-mw-utils.git \
 				bundle/vim-protobuf.git \
-				bundle/dockerfile.vim.git
+				bundle/dockerfile.vim.git \
+				bundle/vim-airline.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -88,8 +88,8 @@ bundle/nerdtree.git: bundle
 bundle/vim-endwise.git: bundle
 	$(call gitco,git://github.com/tpope/vim-endwise.git,$@)
 
-bundle/vim-powerline.git: bundle
-	$(call gitco,git://github.com/Lokaltog/vim-powerline.git,$@)
+bundle/vim-airline.git: bundle
+	$(call gitco,git://github.com/bling/vim-airline.git,$@)
 
 bundle/vim-fugitive.git: bundle
 	$(call gitco,git://github.com/tpope/vim-fugitive.git,$@)

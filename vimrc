@@ -67,7 +67,11 @@ set laststatus=2
 
 " power line
 "let g:Powerline_symbols = 'compatible'
-call Pl#Theme#RemoveSegment('lineinfo')
+"call Pl#Theme#RemoveSegment('lineinfo')
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_inactive_collapse=1
+let g:airline_section_z = '%3p%%' " disable line number
 
 " syntastic
 let g:syntastic_enable_signs=1
@@ -147,7 +151,7 @@ set wildignore+=app/assets/images/**
 au BufNewFile,BufRead *.as	setf actionscript
 
 " go
-augroup MyGo
+augroup MyGoFt
   autocmd!
   autocmd FileType go if expand("%") =~ "_test.go" | set ft+=.go_test | endif
 augroup end
@@ -179,7 +183,6 @@ augroup MyRailsFt
   autocmd User Rails if expand("%:p") =~ "/app/models/"       | set ft+=.rails_model      | endif
   autocmd User Rails if expand("%:p") =~ "/app/helpers/"      | set ft+=.rails_helper     | endif
   autocmd User Rails if expand("%:p") =~ "/app/controllers/"  | set ft+=.rails_controller | endif
-  autocmd User Rails if expand("%:p") =~ "/spec/"             | set ft+=.rspec            | endif
   autocmd User Rails if expand("%:p") =~ "/spec/models/"      | set ft+=.rspec_model      | endif
   autocmd User Rails if expand("%:p") =~ "/spec/controllers/" | set ft+=.rspec_controller | endif
   autocmd User Rails if expand("%:p") =~ "/spec/helpers/"     | set ft+=.rspec_helper     | endif
