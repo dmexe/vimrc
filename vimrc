@@ -25,10 +25,16 @@ filetype indent on
 filetype plugin on
 
 set background=dark
-"colorscheme railscasts
 "hi Normal guibg=#1B2426
 if has("gui_running")
   colorscheme solarized
+  "colorscheme codeschool
+
+  " clojure fixes
+  hi! link clojureParen Normal
+  hi! link clojureDefine Normal
+  hi! link clojureSpecial Normal
+  hi! link clojureMacro Normal
 endif
 
 set encoding=utf-8
