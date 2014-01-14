@@ -31,7 +31,10 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/vim-protobuf.git \
 				bundle/dockerfile.vim.git \
 				bundle/vim-airline.git \
-				bundle/vim-slim.git
+				bundle/vim-slim.git \
+				bundle/vim-fireplace.git \
+				bundle/vim-classpath.git \
+				bundle/vim-clojure-static.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -131,6 +134,15 @@ bundle/dockerfile.vim.git: bundle
 
 bundle/vim-slim.git: bundle
 	$(call gitco,https://github.com/slim-template/vim-slim, $@)
+
+bundle/vim-fireplace.git: bundle
+	$(call gitco,https://github.com/tpope/vim-fireplace.git, $@)
+
+bundle/vim-classpath.git: bundle
+	$(call gitco,https://github.com/tpope/vim-classpath.git, $@)
+
+bundle/vim-clojure-static.git: bundle
+	$(call gitco,https://github.com/guns/vim-clojure-static.git, $@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
