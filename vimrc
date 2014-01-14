@@ -35,6 +35,11 @@ if has("gui_running")
   hi! link clojureDefine Normal
   hi! link clojureSpecial Normal
   hi! link clojureMacro Normal
+
+  " ruby fixes
+  hi! link rubyInclude Normal
+  hi! link rubyStringDelimiter String
+  hi! link rubyInterpolationDelimiter Normal
 endif
 
 set encoding=utf-8
