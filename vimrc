@@ -249,3 +249,4 @@ nmap <silent> <leader>p :NERDTreeToggle<CR>
 
 " Switch between last two buffers
 nnoremap <leader><leader> <c-^>
+
