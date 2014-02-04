@@ -250,3 +250,14 @@ nmap <silent> <leader>p :NERDTreeToggle<CR>
 " Switch between last two buffers
 nnoremap <leader><leader> <c-^>
 
+" Project
+" before call project#rc()
+let g:project_enable_welcome = 1
+" if you want the NERDTree integration.
+let g:project_use_nerdtree = 1
+
+set rtp+=~/.apps/
+call project#rc("~/apps")
+
+Project "vx-consumer"
+Project "vx-worker"
