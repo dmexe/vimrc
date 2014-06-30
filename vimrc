@@ -112,7 +112,7 @@ au FocusLost * :wa
 if has("gui_running")
   " GUI is running or is about to start.
   " Maximize gvim window.
-  set guifont=Monaco:h13
+  set guifont=Consolas:h13
 
   set guioptions-=T " disable toolbar
   set guioptions-=h " disable hscroll
@@ -191,13 +191,13 @@ augroup end
 
 augroup MyRailsFt
   autocmd!
-  autocmd User Rails if expand("%:p") =~ "/app/models/"       | set ft+=.rails_model      | endif
-  autocmd User Rails if expand("%:p") =~ "/app/helpers/"      | set ft+=.rails_helper     | endif
-  autocmd User Rails if expand("%:p") =~ "/app/controllers/"  | set ft+=.rails_controller | endif
-  autocmd User Rails if expand("%:p") =~ "/spec/models/"      | set ft+=.rspec_model      | endif
-  autocmd User Rails if expand("%:p") =~ "/spec/controllers/" | set ft+=.rspec_controller | endif
-  autocmd User Rails if expand("%:p") =~ "/spec/helpers/"     | set ft+=.rspec_helper     | endif
-  autocmd User Rails if expand("%:p") =~ "/db/migrate/"       | set ft+=.rails_migration  | endif
+"  autocmd User Rails if expand("%:p") =~ "/app/models/"       | set ft+=.rails_model      | endif
+"  autocmd User Rails if expand("%:p") =~ "/app/helpers/"      | set ft+=.rails_helper     | endif
+"  autocmd User Rails if expand("%:p") =~ "/app/controllers/"  | set ft+=.rails_controller | endif
+"  autocmd User Rails if expand("%:p") =~ "/spec/models/"      | set ft+=.rspec_model      | endif
+"  autocmd User Rails if expand("%:p") =~ "/spec/controllers/" | set ft+=.rspec_controller | endif
+"  autocmd User Rails if expand("%:p") =~ "/spec/helpers/"     | set ft+=.rspec_helper     | endif
+"  autocmd User Rails if expand("%:p") =~ "/db/migrate/"       | set ft+=.rails_migration  | endif
 augroup end
 
 " Ruby
@@ -219,10 +219,6 @@ autocmd BufWritePre * :call StripTrailingWhitespace()
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
 
-" remap tab to indent block
-map <TAB> V=<Esc>^
-"imap <TAB> <Esc>V=<Esc>^
-
 " snipMate
 let g:snippets_dir = "~/.vim/snipmate.snippets"
 " call ReloadAllSnippets()
@@ -230,9 +226,6 @@ let g:snippets_dir = "~/.vim/snipmate.snippets"
 " NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
-
-imap <C-h> <ESC>^
-imap <C-l> <ESC>$
 
 " CtrlP
 let mapleader = ","
@@ -250,14 +243,3 @@ nmap <silent> <leader>p :NERDTreeToggle<CR>
 " Switch between last two buffers
 nnoremap <leader><leader> <c-^>
 
-" Project
-" before call project#rc()
-let g:project_enable_welcome = 1
-" if you want the NERDTree integration.
-let g:project_use_nerdtree = 1
-
-set rtp+=~/.apps/
-call project#rc("~/apps")
-
-Project "vx-consumer"
-Project "vx-worker"

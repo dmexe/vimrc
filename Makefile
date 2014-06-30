@@ -35,7 +35,12 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/vim-fireplace.git \
 				bundle/vim-classpath.git \
 				bundle/vim-clojure-static.git \
-				bundle/vim-markdown.git
+				bundle/vim-clojure-highlight.git \
+				bundle/vim-markdown.git \
+				bundle/vim-emmet.git \
+				bundle/vim-moonscript.git \
+				bundle/tagbar.git \
+				bundle/vim-less.git
 
 download=@echo download $(2) \($(1)\); $(WGET) $(1) -O - > $(2)
 gitco=@echo fetch $(2) \($(1)\);\
@@ -145,8 +150,23 @@ bundle/vim-classpath.git: bundle
 bundle/vim-clojure-static.git: bundle
 	$(call gitco,https://github.com/guns/vim-clojure-static.git, $@)
 
+bundle/vim-clojure-highlight.git: bundle
+	$(call gitco,https://github.com/guns/vim-clojure-highlight.git, $@)
+
 bundle/vim-markdown.git: bundle
 	$(call gitco,https://github.com/tpope/vim-markdown.git, $@)
+
+bundle/vim-emmet.git: bundle
+	$(call gitco,https://github.com/mattn/emmet-vim.git, $@)
+
+bundle/vim-moonscript.git: bundle
+	$(call gitco, https://github.com/leafo/moonscript-vim.git, $@)
+
+bundle/tagbar.git: bundle
+	$(call gitco, https://github.com/majutsushi/tagbar.git, $@)
+
+bundle/vim-less.git: bundle
+	$(call gitco, https://github.com/groenewege/vim-less.git, $@)
 
 clean:
 	@for i in $(PATHOGEN) ; do \
