@@ -25,7 +25,7 @@ BUNDLES=bundle/vim-snipmate.git \
 				bundle/ack.vim.git \
 				bundle/vim-surround.git \
 				bundle/tabular.git \
-				bundle/vim-golang.git \
+				bundle/vim-go.git \
 				bundle/tlib_vim.git \
 				bundle/vim-addon-mw-utils.git \
 				bundle/vim-protobuf.git \
@@ -129,8 +129,8 @@ bundle/vim-surround.git: bundle
 bundle/tabular.git: bundle
 	$(call gitco,git://github.com/godlygeek/tabular.git,$@)
 
-bundle/vim-golang.git: bundle
-	$(call gitco,git://github.com/jnwhiteh/vim-golang.git,$@)
+bundle/vim-go.git: bundle
+	$(call gitco,https://github.com/fatih/vim-go.git,$@)
 
 bundle/vim-protobuf.git: bundle
 	$(call gitco,https://github.com/uarun/vim-protobuf.git, $@)
