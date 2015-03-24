@@ -1,5 +1,35 @@
-runtime autoload/pathogen.vim
-call pathogen#infect()
+" Vundle begin
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomtom/tlib_vim' " for snipmate
+Plugin 'MarcWeber/vim-addon-mw-utils' " for snipmate
+Plugin 'garbas/vim-snipmate'
+Plugin 'ervandew/supertab'
+Plugin 'Raimondi/delimitMate'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-endwise'
+Plugin 'ujihisa/camelcasemotion.git'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'godlygeek/tabular'
+Plugin 'uarun/vim-protobuf'
+Plugin 'fatih/vim-go'
+Plugin 'honza/dockerfile.vim'
+Plugin 'tpope/vim-markdown'
+Plugin 'bkad/vim-terraform'
+Plugin 'mxw/vim-jsx'
+call vundle#end()
 
 set nocompatible
 set autoindent
@@ -20,9 +50,7 @@ if exists("+autochdir")
 endif
 
 syntax on
-filetype on
-filetype indent on
-filetype plugin on
+filetype plugin indent on
 
 set background=dark
 "hi Normal guibg=#1B2426
