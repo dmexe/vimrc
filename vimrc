@@ -29,6 +29,7 @@ Plugin 'honza/dockerfile.vim'
 Plugin 'tpope/vim-markdown'
 Plugin 'bkad/vim-terraform'
 Plugin 'mxw/vim-jsx'
+Plugin 'Lokaltog/vim-easymotion'
 call vundle#end()
 
 set nocompatible
@@ -254,6 +255,10 @@ let g:snippets_dir = "~/.vim/snipmate.snippets"
 " NERDTree
 let g:NERDTreeDirArrows=1
 let g:NERDTreeMinimalUI=1
+
+" easymotio
+let g:EasyMotion_do_mapping = 0
+nmap <leader>s <Plug>(easymotion-s)
 
 " CtrlP
 let mapleader = ","
